@@ -10,15 +10,21 @@ namespace Wormhole
 	class Client
 	{
 	private:
-		static ArrayList<sf::TcpSocket*> sockets;
-		static sf::UdpSocket broadcastSocket;
-		static sf::Thread* broadcastThread;
-		static bool broadcasting;
+		sf::UdpSocket broadcastSocket;
+		sf::Thread* broadcastThread;
+		bool broadcasting;
+		unsigned short broadcastPort;
+		long broadcastFrequency;
 
-		static void threadBroadcast();
+		void broadcastThreadCallback();
 
 	public:
-	    static void startBroadcast();
-		static sf::Socket::Status connect(const sf::IpAddress& ipAddress, unsigned short port);
+		Client();
+		~Client();
+
+	    void startBroadcast(unsigned short port, long broadcastFreqency = 1000);
+		void stopBroadcast();
+
+		bool isBroadcasting();
 	};
 }

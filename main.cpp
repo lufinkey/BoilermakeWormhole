@@ -18,12 +18,12 @@
 
 int main(int argc, char* argv[])
 {
-	//TODO add bending of space and time
+	Wormhole::Server server;
+	Wormhole::Client client;
+	server.startPolling(800813, 1000);
+	client.startBroadcast(800813, 1000);
+
 	MainApp* mainApp = new MainApp();
-
-	Wormhole::Server::start(8009, 16);
-	Wormhole::Client::startBroadcast();
-
 	int retVal = mainApp->run(300,300);
 	delete mainApp;
 	return retVal;

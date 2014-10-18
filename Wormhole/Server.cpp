@@ -4,114 +4,122 @@
 
 namespace Wormhole
 {
-	//TcpNode
-
-	Server::TcpNode::TcpNode(unsigned short port)
+	Server::Server()
 	{
+		polling = false;
+		pollingThread = NULL;
+		port = 8009;
+		pollingFrequency = 1000;
+	}
+
+	Server::~Server()
+	{
+		if(polling)
+		{
+			stopPolling();
+		}
+	}
+
+	void Server::startPolling(unsigned short port, long pollingFrequency)
+	{
+		if(polling)
+		{
+			stopPolling();
+		}
+
+		polling = true;
 		this->port = port;
-		listener.listen(port);
-		acceptThread = new sf::Thread(&Wormhole::Server::TcpNode::acceptThreadCallback, this);
-		acceptThread->launch();
+		this->pollingFrequency = pollingFrequency;
+		pollingSocket.bind(port);
+		pollingThread = new sf::Thread(&Server::pollingThreadCallback, this);
+		pollingThread->launch();
 	}
 
-	Server::TcpNode::~TcpNode()
+	void Server::stopPolling()
 	{
-		if(socket.getRemoteAddress() != sf::IpAddress::None)
+		if(polling)
 		{
-			socket.disconnect();
+			polling = false;
+			pollingSocket.unbind();
+			delete pollingThread;
+			pollingThread = NULL;
 		}
-		listener.close();
-		delete acceptThread;
 	}
 
-	void Server::TcpNode::acceptThreadCallback()
+	void Server::pollingThreadCallback()
 	{
-		listener.accept(socket);
-	}
+		timeData.restart();
 
-	bool Server::TcpNode::connected()
-	{
-		if(socket.getRemoteAddress() == sf::IpAddress::None)
+		while(polling)
 		{
-			return false;
-		}
-		return true;
-	}
+			char buffer[20];
+			unsigned int size = 0;
 
-
-
-	//Server
-
-	ArrayList<Server::TcpNode*> Server::nodes = ArrayList<Server::TcpNode*>();
-	ArrayList<String> Server::ips = ArrayList<String>();
-	sf::UdpSocket Server::listenSocket;
-	sf::Thread* Server::listenThread;
-	unsigned short Server::port = 8008;
-	unsigned short Server::range = 16;
-	bool Server::started = false;
-
-	void Server::threadListen()
-	{
-        while (true)
-		{
-			char buffer[1024];
-			std::size_t received = 0;
 			sf::IpAddress sender;
-			unsigned short port;
-			listenSocket.receive(buffer, sizeof(buffer), received, sender, port);
 
-			if (!ips.contains(sender.toString()))
+			sf::Socket::Status status = pollingSocket.receive(buffer, sizeof(buffer), size, sender, port);
+
+			String selfIP = sf::IpAddress::getLocalAddress().toString();
+
+			IPList_mutex.lock();
+
+			//checking for expired IPs
+			long currentTime = timeData.getElapsedTime().asMilliseconds();
+			for(int i = (IPList.size()-1); i >= 0; i--)
 			{
-				ips.add(sender.toString());
+				IPData data = IPList.get(i);
+				if((currentTime - data.lastHeardTime) > 8000)
+				{
+					IPList.remove(i);
+				}
 			}
 
-			for (int i = 0; i < ips.size(); i++)
+			//checking recieved ip
+			if(status != sf::Socket::Disconnected && status != sf::Socket::Error && polling)
 			{
-				AppEngine::Console::WriteLine(ips.get(i));
+				bool containsIP = false;
+
+				String senderString = sender.toString();
+			
+				for(int i = 0; i < IPList.size(); i++)
+				{
+					IPData data = IPList.get(i);
+					if(data.ipAddress.equals(senderString))
+					{
+						containsIP = true;
+
+						data.lastHeardTime = timeData.getElapsedTime().asMilliseconds();
+						IPList.set(i, data);
+
+						i = IPList.size();
+					}
+				}
+
+				if(!containsIP)
+				{
+					if(!senderString.equals(selfIP))
+					{
+						IPData data;
+						data.ipAddress = senderString;
+						data.lastHeardTime = timeData.getElapsedTime().asMilliseconds();
+						IPList.add(data);
+					}
+				}
 			}
 
-			sf::sleep(sf::milliseconds(1000));
+			IPList_mutex.unlock();
+
+			if(polling)
+			{
+				sf::sleep(sf::milliseconds(pollingFrequency));
+			}
 		}
+
+		IPList.clear();
 	}
 
-	void Server::start(unsigned short port, unsigned short range)
+	bool Server::isPolling()
 	{
-		if(started)
-		{
-			return;
-		}
-		started = true;
-
-		listenSocket.bind(port);
-
-		listenThread = new sf::Thread(&Wormhole::Server::threadListen);
-		listenThread->launch();
-
-		Server::port = port;
-		Server::range = range;
-		unsigned short endPort = port + range;
-
-		for(unsigned short i = port; i < endPort; i++)
-		{
-			TcpNode* node = new TcpNode(i);
-			nodes.add(node);
-		}
-	}
-
-	void Server::close()
-	{
-		if(!started)
-		{
-			return;
-		}
-
-		for(int i = (nodes.size()-1); i >= 0; i--)
-		{
-			TcpNode* node = nodes.get(i);
-			delete node;
-			nodes.remove(i);
-		}
-
-		started = false;
+		return polling;
 	}
 }

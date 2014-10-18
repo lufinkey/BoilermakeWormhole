@@ -5,51 +5,61 @@
 
 namespace Wormhole
 {
-	ArrayList<sf::TcpSocket*> Client::sockets = ArrayList<sf::TcpSocket*>();
-	sf::UdpSocket Client::broadcastSocket;
-	sf::Thread* Client::broadcastThread = NULL;
-	bool Client::broadcasting = false;
-
-    void Client::startBroadcast()
-    {
-        if (!broadcasting)
-        {
-			broadcastSocket.bind(8008);
-
-			broadcastThread = new sf::Thread(&Client::threadBroadcast);
-			broadcastThread->launch();
-        }
-        else
-        {
-			AppEngine::Console::WriteLine("Already broadcasting");
-        }
-    }
-
-    void Client::threadBroadcast()
-    {
-        while (true)
-        {
-            String identity = sf::IpAddress::getLocalAddress().toString();
-            broadcastSocket.send((const char*)identity, identity.length() + 1, sf::IpAddress::Broadcast, 8009);
-            sf::sleep(sf::milliseconds(15000));
-        }
-    }
-
-	sf::Socket::Status Client::connect(const sf::IpAddress& ipAddress, unsigned short port)
+	Client::Client()
 	{
-		sf::TcpSocket* socket = new sf::TcpSocket();
-
-		sf::Socket::Status status = socket->connect(ipAddress, port, sf::milliseconds(10000));
-		if(status == sf::Socket::Done)
-		{
-			sockets.add(socket);
-		}
-		else
-		{
-			delete socket;
-		}
-		return status;
+		broadcasting = false;
+		broadcastThread = NULL;
 	}
 
+	Client::~Client()
+	{
+		if(broadcasting)
+		{
+			stopBroadcast();
+		}
+	}
 
+    void Client::startBroadcast(unsigned short port, long broadcastFrequency)
+    {
+		if(broadcasting)
+		{
+			stopBroadcast();
+		}
+
+		broadcasting = true;
+		broadcastPort = port;
+		this->broadcastFrequency = broadcastFrequency;
+		//broadcastSocket.bind(port);
+		broadcastThread = new sf::Thread(&Client::broadcastThreadCallback, this);
+		broadcastThread->launch();
+    }
+
+	void Client::stopBroadcast()
+	{
+		if(broadcasting)
+		{
+			broadcasting = false;
+			//broadcastSocket.unbind();
+			delete broadcastThread;
+			broadcastThread = NULL;
+		}
+	}
+
+	void Client::broadcastThreadCallback()
+    {
+        while (broadcasting)
+        {
+			String data = "suckmydick";
+            broadcastSocket.send((const char*)data, data.length() + 1, sf::IpAddress::Broadcast, broadcastPort);
+			if(broadcasting)
+			{
+				sf::sleep(sf::milliseconds(broadcastFrequency));
+			}
+        }
+    }
+
+	bool Client::isBroadcasting()
+	{
+		return broadcasting;
+	}
 }

@@ -2,6 +2,7 @@
 #include <SFML/Network.hpp>
 #include "../AppEngine/Util/String.h"
 #include "../AppEngine/Util/ArrayList.h"
+#include <mutex>
 
 #pragma once
 
@@ -10,33 +11,32 @@ namespace Wormhole
 	class Server
 	{
 	private:
-		class TcpNode
+		typedef struct
 		{
-		private:
-			sf::TcpListener listener;
-			sf::TcpSocket socket;
-			sf::Thread* acceptThread;
-			unsigned short port;
+			long lastHeardTime;
+			String ipAddress;
+		} IPData;
 
-			void acceptThreadCallback();
+		std::mutex IPList_mutex;
+		ArrayList<IPData> IPList;
+		sf::UdpSocket pollingSocket;
+		sf::Thread* pollingThread;
 
-		public:
-			TcpNode(unsigned short port);
-			~TcpNode();
-			bool connected();
-		};
+		sf::Clock timeData;
 
-		static ArrayList<TcpNode*> nodes;
-		static ArrayList<String> ips;
-		static sf::UdpSocket listenSocket;
-		static sf::Thread* listenThread;
-		static unsigned short port;
-		static unsigned short range;
-		static bool started;
+		unsigned short port;
+		long pollingFrequency;
+		bool polling;
 
-		static void threadListen();
+		void pollingThreadCallback();
+
 	public:
-		static void start(unsigned short port, unsigned short range);
-		static void close();
+		Server();
+		~Server();
+
+		void startPolling(unsigned short port, long pollingFrequency=1000);
+		void stopPolling();
+
+		bool isPolling();
 	};
 }

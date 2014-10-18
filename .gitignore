@@ -51,6 +51,7 @@ SDL2_*/
 
 #Project Specific Folders
 Debug\ Static/
+Release\ Static/
 
 bin/
 obj/
