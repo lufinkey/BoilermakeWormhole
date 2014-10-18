@@ -14,6 +14,7 @@ namespace AppEngine
 
 		static unsigned int windowWidth;
 		static unsigned int windowHeight;
+		static Color bgColor;
 
 		static bool appRunning;
 		static bool appClosing;
@@ -25,15 +26,18 @@ namespace AppEngine
 		static long appTime;
 		static long sleepTime;
 
+		static const int totalKeys = 526;
 		static bool KeyState[526];
 		static bool currentKeyState[526];
 		static bool prevKeyState[526];
 		static int lastKey;
+		static int currentLastKey;
 
 		void updateEvents();
 
 		static void keyPressed(int keycode);
 		static void keyReleased(int keycode);
+		static void updateKeys(bool*keys1, bool*keys2);
 
 	public:
 		Application();

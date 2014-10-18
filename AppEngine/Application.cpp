@@ -13,6 +13,10 @@ namespace AppEngine
 
 	unsigned int Application::windowWidth = 640;
 	unsigned int Application::windowHeight = 480;
+	Color Application::bgColor = Color::WHITE;
+
+	long Application::sleepTime = 33;
+	long Application::appTime = 0;
 
 	bool Application::appRunning = false;
 	bool Application::appClosing = false;
@@ -25,6 +29,7 @@ namespace AppEngine
 	bool Application::currentKeyState[526];
 	bool Application::prevKeyState[526];
 	int Application::lastKey = 0;
+	int Application::currentLastKey = -1;
 
 	Application::Application()
 	{
@@ -108,7 +113,31 @@ namespace AppEngine
 
 		while(appRunning && !appClosing)
 		{
-			//
+			updateEvents();
+			if(!appClosing)
+			{
+				updateKeys(currentKeyState, KeyState);
+				currentLastKey = lastKey;
+				lastKey = -1;
+
+				this->Update(appTime);
+
+				SDL_SetRenderDrawColor(renderer, bgColor.r, bgColor.g, bgColor.b, bgColor.a);
+				SDL_RenderClear(renderer);
+				SDL_SetRenderDrawColor(renderer, 0,0,0,255);
+
+				graphics->reset();
+				graphics->updateStringCache();
+
+				this->Draw(*graphics,appTime);
+
+				updateKeys(prevKeyState,currentKeyState);
+				SDL_RenderPresent(renderer);
+
+				SDL_Delay(sleepTime);
+
+				appTime += sleepTime;
+			}
 		}
 
 		return 0;
@@ -157,6 +186,14 @@ namespace AppEngine
 		if(keycode!=0)
 		{
 			KeyState[keycode] = false;
+		}
+	}
+
+	void Application::updateKeys(bool*keys1, bool*keys2)
+	{
+		for(int i=0; i<totalKeys; i++)
+		{
+			keys1[i]=keys2[i];
 		}
 	}
 
