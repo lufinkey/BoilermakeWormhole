@@ -431,8 +431,10 @@
 	<math.h>
 	<cstring>
 
-1413650952 source:c:\users\matthew\dev\cpp\boilermakewormhole\main.cpp
+1413653828 source:c:\users\matthew\dev\cpp\boilermakewormhole\main.cpp
 	"MainApp.h"
+	"Wormhole/Client.h"
+	"Wormhole/Server.h"
 
 1413645830 c:\users\matthew\dev\cpp\boilermakewormhole\mainapp.h
 	"AppEngine\Application.h"
@@ -440,7 +442,7 @@
 1413645830 source:c:\users\matthew\dev\cpp\boilermakewormhole\mainapp.cpp
 	"MainApp.h"
 
-1413647666 source:c:\users\matthew\dev\cpp\boilermakewormhole\wormhole\client.cpp
+1413653477 source:c:\users\matthew\dev\cpp\boilermakewormhole\wormhole\client.cpp
 	"Client.h"
 	"String.h"
 	"../AppEngine/Output/Console.h"
@@ -615,10 +617,12 @@
 	<SFML/Network/Socket.hpp>
 	<vector>
 
-1413646200 source:c:\users\matthew\dev\cpp\boilermakewormhole\wormhole\server.cpp
+1413653807 source:c:\users\matthew\dev\cpp\boilermakewormhole\wormhole\server.cpp
+	"../AppEngine/Output/Console.h"
 	"Server.h"
 
-1413644183 c:\users\matthew\dev\cpp\boilermakewormhole\wormhole\server.h
+1413652536 c:\users\matthew\dev\cpp\boilermakewormhole\wormhole\server.h
 	<SFML/Network.hpp>
+	"../AppEngine/Util/String.h"
 	"../AppEngine/Util/ArrayList.h"
 

@@ -1,5 +1,6 @@
 
 #include <SFML/Network.hpp>
+#include "../AppEngine/Util/String.h"
 #include "../AppEngine/Util/ArrayList.h"
 
 #pragma once
@@ -26,10 +27,14 @@ namespace Wormhole
 		};
 
 		static ArrayList<TcpNode*> nodes;
+		static ArrayList<String> ips;
+		static sf::UdpSocket listenSocket;
+		static sf::Thread* listenThread;
 		static unsigned short port;
 		static unsigned short range;
 		static bool started;
 
+		static void threadListen();
 	public:
 		static void start(unsigned short port, unsigned short range);
 		static void close();

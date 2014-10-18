@@ -12,7 +12,7 @@ namespace Wormhole
 
     void Client::startBroadcast()
     {
-        if (broadcasting)
+        if (!broadcasting)
         {
 			broadcastSocket.bind(8008);
 
@@ -29,9 +29,9 @@ namespace Wormhole
     {
         while (true)
         {
-            sf::sleep(sf::milliseconds(15000));
             String identity = sf::IpAddress::getLocalAddress().toString();
             broadcastSocket.send((const char*)identity, identity.length() + 1, sf::IpAddress::Broadcast, 8009);
+            sf::sleep(sf::milliseconds(15000));
         }
     }
 

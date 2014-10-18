@@ -1,5 +1,7 @@
 
 #include "MainApp.h"
+#include "Wormhole/Client.h"
+#include "Wormhole/Server.h"
 
 #undef main
 
@@ -18,7 +20,11 @@ int main(int argc, char* argv[])
 {
 	//TODO add bending of space and time
 	MainApp* mainApp = new MainApp();
-	int retVal = mainApp->run(300,300, false);
+
+	Wormhole::Server::start(8009, 16);
+	Wormhole::Client::startBroadcast();
+
+	int retVal = mainApp->run(300,300);
 	delete mainApp;
 	return retVal;
 }

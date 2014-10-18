@@ -1,10 +1,11 @@
 
+#include "../AppEngine/Output/Console.h"
 #include "Server.h"
 
 namespace Wormhole
 {
 	//TcpNode
-	
+
 	Server::TcpNode::TcpNode(unsigned short port)
 	{
 		this->port = port;
@@ -42,9 +43,33 @@ namespace Wormhole
 	//Server
 
 	ArrayList<Server::TcpNode*> Server::nodes = ArrayList<Server::TcpNode*>();
+	ArrayList<String> Server::ips = ArrayList<String>();
+	sf::UdpSocket Server::listenSocket;
+	sf::Thread* Server::listenThread;
 	unsigned short Server::port = 8008;
 	unsigned short Server::range = 16;
 	bool Server::started = false;
+
+	void Server::threadListen()
+	{
+        while (true)
+		{
+			char buffer[1024];
+			std::size_t received = 0;
+			sf::IpAddress sender;
+			unsigned short port;
+			listenSocket.receive(buffer, sizeof(buffer), received, sender, port);
+
+			ips.add(sender.toString);
+
+			for (int i = 0; i < ips.size(); i++)
+			{
+				AppEngine::Console::WriteLine(ips.get(i));
+			}
+
+			sf::sleep(sf::milliseconds(1000));
+		}
+	}
 
 	void Server::start(unsigned short port, unsigned short range)
 	{
@@ -53,6 +78,11 @@ namespace Wormhole
 			return;
 		}
 		started = true;
+
+		listenSocket.bind(port);
+
+		listenThread = new sf::Thread(&Wormhole::Server::threadListen);
+		listenThread->launch();
 
 		Server::port = port;
 		Server::range = range;
