@@ -133,6 +133,8 @@ namespace Wormhole
 			IPs.add(IPList.get(i).ipAddress);
 		}
 
+		IPList_mutex.unlock();
+
 		return IPs;
 	}
 }

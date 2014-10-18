@@ -4,8 +4,8 @@
 
 MainApp::MainApp()
 {
-	server.startPolling(800813, 1000);
-	client.startBroadcast(800813, 1000);
+	server.startPolling((unsigned short)800813, 1000);
+	client.startBroadcast((unsigned short)800813, 1000);
 }
 
 MainApp::~MainApp()
@@ -30,6 +30,7 @@ void MainApp::UnloadContent()
 
 void MainApp::Update(long appTime)
 {
+	Console::WriteLine((String)"Self IP:" + sf::IpAddress::getLocalAddress().toString());
 	AppEngine::Console::WriteLine("IP List:");
 
 	for (int i = 0; i < server.getIPList().size(); i++)
