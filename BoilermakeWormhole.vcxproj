@@ -28,6 +28,7 @@
     <ClCompile Include="AppEngine\Util\Image.cpp" />
     <ClCompile Include="AppEngine\Util\String.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="Wormhole\Client.cpp" />
     <ClCompile Include="Wormhole\Server.cpp" />
   </ItemGroup>
@@ -44,6 +45,7 @@
     <ClInclude Include="AppEngine\Util\Image.h" />
     <ClInclude Include="AppEngine\Util\String.h" />
     <ClInclude Include="AppEngine\Util\Vector2.h" />
+    <ClInclude Include="MainApp.h" />
     <ClInclude Include="Wormhole\Client.h" />
     <ClInclude Include="Wormhole\Server.h" />
   </ItemGroup>

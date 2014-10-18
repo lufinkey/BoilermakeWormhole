@@ -78,6 +78,9 @@
     <ClCompile Include="AppEngine\Output\Console.cpp">
       <Filter>Source Files\AppEngine\Output</Filter>
     </ClCompile>
+    <ClCompile Include="MainApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Wormhole\Client.h">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="AppEngine\forwards.h">
       <Filter>Header Files\AppEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="MainApp.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
