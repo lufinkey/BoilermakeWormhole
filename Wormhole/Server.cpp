@@ -60,7 +60,10 @@ namespace Wormhole
 			unsigned short port;
 			listenSocket.receive(buffer, sizeof(buffer), received, sender, port);
 
-			ips.add(sender.toString);
+			if (!ips.contains(sender.toString()))
+			{
+				ips.add(sender.toString());
+			}
 
 			for (int i = 0; i < ips.size(); i++)
 			{
