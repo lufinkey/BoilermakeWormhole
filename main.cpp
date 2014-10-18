@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 {
 	//TODO add bending of space and time
 	MainApp* mainApp = new MainApp();
-	int retVal = mainApp->run(300,300);
+	int retVal = mainApp->run(300,300, false);
 	delete mainApp;
 	return retVal;
 }

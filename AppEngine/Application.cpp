@@ -1,10 +1,13 @@
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "Application.h"
 #include "Output\Console.h"
-#include "SDL_image.h"
-#include "SDL_ttf.h"
+#include <SDL_image.h>
+#include <SDL_ttf.h>
 #include "Input\Keys.h"
 #include <time.h>
+#include <SDL_syswm.h>
 
 namespace AppEngine
 {
@@ -76,11 +79,11 @@ namespace AppEngine
 
 		if(borderless)
 		{
-			window = SDL_CreateWindow(NULL, 0, 0, 300, 300, SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS | SDL_WINDOW_SHOWN);
+			window = SDL_CreateWindow(NULL, 100, 100, 300, 300, SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS | SDL_WINDOW_SHOWN);
 		}
 		else
 		{
-			window = SDL_CreateWindow(NULL, 0, 0, 300, 300, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+			window = SDL_CreateWindow(NULL, 100, 100, 300, 300, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 		}
 
 		if(window == NULL)
@@ -89,6 +92,11 @@ namespace AppEngine
 			appRunning = false;
 			return 1;
 		}
+
+		SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
+
+		SDL_SysWMinfo wmInfo;
+		SDL_GetWindowWMInfo(window, &wmInfo);
 
 		windowWidth = width;
 		windowHeight = height;
@@ -166,6 +174,19 @@ namespace AppEngine
 				
 				case SDL_KEYUP:
 				keyReleased(Keys::SDLK_to_KeyCode(event.key.keysym.sym));
+				break;
+
+				case SDL_DROPFILE:
+				{
+					Console::WriteLine(event.drop.file);
+					SDL_free(event.drop.file);
+				}
+				break;
+
+				case SDL_TEXTINPUT:
+				{
+					Console::WriteLine(event.text.text);
+				}
 				break;
 			}
 		}
