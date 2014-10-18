@@ -42,8 +42,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-*.cbp
-
 # Libraries
 SFML/
 SDL/
@@ -52,8 +50,8 @@ SDL_*/
 #Project Specific Folders
 Debug\ Static/
 
-Wormhole/bin/
-Wormhole/obj/
+bin/
+obj/
 
 
 *.dll
