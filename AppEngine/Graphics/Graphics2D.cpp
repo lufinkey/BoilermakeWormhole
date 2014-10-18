@@ -3,9 +3,8 @@
 #include "../GlobalDefs.h"
 #include "../Output/Console.h"
 #include "../Application.h"
-#include "../View.h"
 
-namespace GameEngine
+namespace AppEngine
 {
 	ArrayList<StringTexture*> Graphics2D::stringCache = ArrayList<StringTexture*>();
 	ArrayList<StringTexture*> Graphics2D::nextStringCache = ArrayList<StringTexture*>();
@@ -22,8 +21,8 @@ namespace GameEngine
 		SDL_Rect rect;
 		rect.x = 0;
 		rect.y = 0;
-		rect.w = View::Width();
-		rect.h = View::Height();
+		rect.w = Application::getWidth();
+		rect.h = Application::getHeight();
 		SDL_RenderSetViewport(renderer, &rect);
 	}
 	

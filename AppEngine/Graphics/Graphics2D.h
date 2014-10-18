@@ -8,7 +8,7 @@
 
 #pragma once
 
-namespace GameEngine
+namespace AppEngine
 {
 	class Graphics2D
 	{
