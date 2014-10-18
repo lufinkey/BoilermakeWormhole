@@ -9,6 +9,8 @@ namespace Wormhole
 	{
 		broadcasting = false;
 		broadcastThread = NULL;
+		sendingFile = false;
+		sendFileThread = NULL;
 	}
 
 	Client::~Client()
@@ -16,6 +18,11 @@ namespace Wormhole
 		if(broadcasting)
 		{
 			stopBroadcast();
+		}
+
+		if(sendingFile)
+		{
+            stopSendFile();
 		}
 	}
 
@@ -34,14 +41,38 @@ namespace Wormhole
 		broadcastThread->launch();
     }
 
+    void Client::sendFile(unsigned short port, String path)
+    {
+        if (sendingFile)
+		{
+			stopSendFile();
+		}
+
+		sending = true;
+		sendFilePort = port;
+        this->path = path;
+        sendFileThread = new sf::Thread(&Client::sendFileThreadCallback, this);
+        sendFileThread->launch();
+    }
+
 	void Client::stopBroadcast()
 	{
-		if(broadcasting)
+		if (broadcasting)
 		{
 			broadcasting = false;
 			//broadcastSocket.unbind();
 			delete broadcastThread;
 			broadcastThread = NULL;
+		}
+	}
+
+	void Client::stopSendFile()
+	{
+		if (sendingFile)
+		{
+			sendingFile = false;
+			delete sendFileThread;
+			sendFileThread = NULL;
 		}
 	}
 
@@ -58,8 +89,28 @@ namespace Wormhole
         }
     }
 
+    void Client::sendFileThreadCallback()
+    {
+
+    }
+
+    void Client::connect(ArrayList<String> IPs)
+    {
+        for (int i = 0; i < IPs.size(); i++)
+		{
+			sf::TcpSocket recipient;
+			recipient.connect((char*)IPs.get(i), sendFilePort);
+			recipients.add(recipient);
+		}
+    }
+
 	bool Client::isBroadcasting()
 	{
 		return broadcasting;
+	}
+
+	bool Client::isSendingFile()
+	{
+		return sendingFile;
 	}
 }
