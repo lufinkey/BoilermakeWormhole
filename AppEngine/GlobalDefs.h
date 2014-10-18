@@ -3,7 +3,7 @@
 
 #define null 0
 
-namespace GameEngine
+namespace AppEngine
 {
 	const double PI = 3.1415926535897931;
 	

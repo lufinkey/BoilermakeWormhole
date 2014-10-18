@@ -1,6 +1,6 @@
 
 #include <SFML/Network.hpp>
-#include "../AppEngine/ArrayList.h"
+#include "../AppEngine/Util/ArrayList.h"
 
 #pragma once
 
@@ -12,6 +12,6 @@ namespace Wormhole
 		static ArrayList<sf::TcpSocket*> sockets;
 
 	public:
-		sf::Socket::Status connect(const sf::IpAddress& ipAddress, unsigned short port);
+		static sf::Socket::Status connect(const sf::IpAddress& ipAddress, unsigned short port);
 	};
 }

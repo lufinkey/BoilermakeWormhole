@@ -19,12 +19,33 @@
     <Filter Include="Source Files\Wormhole">
       <UniqueIdentifier>{8be1c77a-965a-4bc4-b2a0-d1d2d49522fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\AppEngine">
+      <UniqueIdentifier>{474df87b-6651-46c5-901a-fb7ff5f52975}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AppEngine">
+      <UniqueIdentifier>{7da43219-f4ef-4657-965f-7b92e243688b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AppEngine\Util">
+      <UniqueIdentifier>{a8f02540-455e-4f45-9c2d-7e118621cab2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AppEngine\Graphics">
+      <UniqueIdentifier>{93961d7a-0606-48bf-b8bc-9abd2a70ca3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AppEngine\Util">
+      <UniqueIdentifier>{80f7ffb4-2964-4900-b675-524e7940aea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AppEngine\Graphics">
+      <UniqueIdentifier>{097cc242-d900-4e81-b124-de51077259a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AppEngine\Output">
+      <UniqueIdentifier>{e4070377-1f5a-4623-9a7b-79eaae9efa80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AppEngine\Output">
+      <UniqueIdentifier>{3fe99763-d149-44df-bae7-b306aa928d06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="String.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Wormhole\Client.cpp">
@@ -33,19 +54,73 @@
     <ClCompile Include="Wormhole\Server.cpp">
       <Filter>Source Files\Wormhole</Filter>
     </ClCompile>
+    <ClCompile Include="AppEngine\Application.cpp">
+      <Filter>Source Files\AppEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="AppEngine\Util\BufferedImage.cpp">
+      <Filter>Source Files\AppEngine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="AppEngine\Util\Color.cpp">
+      <Filter>Source Files\AppEngine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="AppEngine\Util\Font.cpp">
+      <Filter>Source Files\AppEngine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="AppEngine\Util\Image.cpp">
+      <Filter>Source Files\AppEngine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="AppEngine\Util\String.cpp">
+      <Filter>Source Files\AppEngine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="AppEngine\Graphics\Graphics2D.cpp">
+      <Filter>Source Files\AppEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="AppEngine\Output\Console.cpp">
+      <Filter>Source Files\AppEngine\Output</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ArrayList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="String.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Wormhole\Client.h">
       <Filter>Header Files\Wormhole</Filter>
     </ClInclude>
     <ClInclude Include="Wormhole\Server.h">
       <Filter>Header Files\Wormhole</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\Application.h">
+      <Filter>Header Files\AppEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\Util\ArrayList.h">
+      <Filter>Header Files\AppEngine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\Util\BufferedImage.h">
+      <Filter>Header Files\AppEngine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\Util\Color.h">
+      <Filter>Header Files\AppEngine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\Util\Font.h">
+      <Filter>Header Files\AppEngine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\Util\Image.h">
+      <Filter>Header Files\AppEngine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\Util\String.h">
+      <Filter>Header Files\AppEngine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\Util\Vector2.h">
+      <Filter>Header Files\AppEngine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\Graphics\Graphics2D.h">
+      <Filter>Header Files\AppEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\Output\Console.h">
+      <Filter>Header Files\AppEngine\Output</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\GlobalDefs.h">
+      <Filter>Header Files\AppEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\forwards.h">
+      <Filter>Header Files\AppEngine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
