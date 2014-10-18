@@ -46,7 +46,8 @@ Temporary Items
 
 # Libraries
 SFML/
-SDL*/
+SDL/
+SDL_*/
 
 #Project Specific Folders
 Debug\ Static/

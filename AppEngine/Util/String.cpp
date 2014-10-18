@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include "stdio.h"
 #include <math.h>
+#include <cstring>
 
 long long string_powll(const long long base, const int exp)
 {
@@ -16,20 +17,20 @@ long long string_powll(const long long base, const int exp)
 	{
 		return 1;
 	}
-	
+
 	long long result = base;
 	int absExp = abs(exp);
-	
+
 	for(int i=1; i<absExp; i++)
 	{
 		result = result*base;
 	}
-	
+
 	if(exp<0)
 	{
 		result = 1/result;
 	}
-	
+
 	return result;
 }
 
@@ -39,20 +40,20 @@ unsigned long long string_powull(const unsigned long long base, const int exp)
 	{
 		return 1;
 	}
-	
+
 	unsigned long long result = base;
 	int absExp = abs(exp);
-	
+
 	for(int i=1; i<absExp; i++)
 	{
 		result = result*base;
 	}
-	
+
 	if(exp<0)
 	{
 		result = 1/result;
 	}
-	
+
 	return result;
 }
 
@@ -248,7 +249,7 @@ short String::asShort(const String&str)
 			return 0;
 		}
 	}
-	
+
 	int mult = 1;
 	int startIndex = 0;
 	if(str.charAt(0)=='-')
@@ -261,10 +262,10 @@ short String::asShort(const String&str)
 		mult = 1;
 		startIndex = 1;
 	}
-	
+
 	int counter = 0;
 	short totalVal = 0;
-	
+
 	for(int i=(str.length()-1); i>=startIndex; i--)
 	{
 		char c = str.charAt(i);
@@ -279,7 +280,7 @@ short String::asShort(const String&str)
 		}
 		counter++;
 	}
-	
+
 	return (short)(totalVal*mult);
 }
 
@@ -398,7 +399,7 @@ double String::asDouble(const String&str)
 		mult = 1;
 		startIndex = 1;
 	}
-	
+
 	int counter = -1;
 	double totalVal = 0;
 
@@ -441,7 +442,7 @@ long long String::asLongLong(const String&str)
 			return 0;
 		}
 	}
-	
+
 	int mult = 1;
 	int startIndex = 0;
 	if(str.charAt(0)=='-')
@@ -454,10 +455,10 @@ long long String::asLongLong(const String&str)
 		mult = 1;
 		startIndex = 1;
 	}
-	
+
 	int counter = 0;
 	long long totalVal = 0;
-	
+
 	for(int i=(str.length()-1); i>=startIndex; i--)
 	{
 		char c = str.charAt(i);
@@ -472,7 +473,7 @@ long long String::asLongLong(const String&str)
 		}
 		counter++;
 	}
-	
+
 	return (long long)(totalVal*mult);
 }
 
@@ -487,12 +488,12 @@ unsigned int String::asUInt(const String&str)
 			return 0;
 		}
 	}
-	
+
 	int startIndex = 0;
-	
+
 	int counter = 0;
 	unsigned int totalVal = 0;
-	
+
 	for(int i=(str.length()-1); i>=startIndex; i--)
 	{
 		char c = str.charAt(i);
@@ -507,7 +508,7 @@ unsigned int String::asUInt(const String&str)
 		}
 		counter++;
 	}
-	
+
 	return totalVal;
 }
 
@@ -522,12 +523,12 @@ unsigned char String::asUChar(const String&str)
 			return 0;
 		}
 	}
-	
+
 	int startIndex = 0;
-	
+
 	int counter = 0;
 	unsigned char totalVal = 0;
-	
+
 	for(int i=(str.length()-1); i>=startIndex; i--)
 	{
 		char c = str.charAt(i);
@@ -542,7 +543,7 @@ unsigned char String::asUChar(const String&str)
 		}
 		counter++;
 	}
-	
+
 	return totalVal;
 }
 
@@ -557,12 +558,12 @@ unsigned long String::asULong(const String&str)
 			return 0;
 		}
 	}
-	
+
 	int startIndex = 0;
-	
+
 	int counter = 0;
 	unsigned long totalVal = 0;
-	
+
 	for(int i=(str.length()-1); i>=startIndex; i--)
 	{
 		char c = str.charAt(i);
@@ -577,7 +578,7 @@ unsigned long String::asULong(const String&str)
 		}
 		counter++;
 	}
-	
+
 	return totalVal;
 }
 
@@ -592,12 +593,12 @@ unsigned short String::asUShort(const String&str)
 			return 0;
 		}
 	}
-	
+
 	int startIndex = 0;
-	
+
 	int counter = 0;
 	unsigned short totalVal = 0;
-	
+
 	for(int i=(str.length()-1); i>=startIndex; i--)
 	{
 		char c = str.charAt(i);
@@ -612,7 +613,7 @@ unsigned short String::asUShort(const String&str)
 		}
 		counter++;
 	}
-	
+
 	return totalVal;
 }
 
@@ -627,12 +628,12 @@ unsigned long long String::asULongLong(const String&str)
 			return 0;
 		}
 	}
-	
+
 	int startIndex = 0;
-	
+
 	int counter = 0;
 	unsigned long long totalVal = 0;
-	
+
 	for(int i=(str.length()-1); i>=startIndex; i--)
 	{
 		char c = str.charAt(i);
@@ -647,7 +648,7 @@ unsigned long long String::asULongLong(const String&str)
 		}
 		counter++;
 	}
-	
+
 	return totalVal;
 }
 
@@ -1679,18 +1680,18 @@ int String::compare(const String&cmp) const
 	{
 		amount = cmp.length();
 	}
-	
+
 	bool hasCap1 = false;
 	bool hasCap2 = false;
-	
+
 	for(int i=0; i<amount; i++)
 	{
 		char c1 = characters[i];
 		char c2 = cmp.characters[i];
-		
+
 		unsigned char type1 = StringCmp_getCharType(c1);
 		unsigned char type2 = StringCmp_getCharType(c2);
-		
+
 		if(type1==type2)
 		{
 			if(c1<c2)
@@ -1708,7 +1709,7 @@ int String::compare(const String&cmp) const
 			{
 				char c1mod = c1 - 'A';
 				char c2mod = c2 - 'a';
-				
+
 				if(c1mod<c2mod)
 				{
 					return 1;
@@ -1729,7 +1730,7 @@ int String::compare(const String&cmp) const
 			{
 				char c1mod = c1 - 'a';
 				char c2mod = c2 - 'A';
-				
+
 				if(c1mod<c2mod)
 				{
 					return 1;
@@ -1759,7 +1760,7 @@ int String::compare(const String&cmp) const
 			}
 		}
 	}
-	
+
 	if(total < cmp.length())
 	{
 		return 1;
@@ -1805,12 +1806,12 @@ void String::replace(const String&find, const String&rep)
 	{
 		return;
 	}
-	
+
 	std::vector<int> indexes;
 	int indexTotal = 0;
-	
+
 	int finish = total - find.total;
-	
+
 	for(int i=0; i<=finish; i++)
 	{
 		if(characters[i]==find.characters[0])
@@ -1824,7 +1825,7 @@ void String::replace(const String&find, const String&rep)
 					j = find.total;
 				}
 			}
-			
+
 			if(match)
 			{
 				indexes.resize(indexTotal+1);
@@ -1834,17 +1835,17 @@ void String::replace(const String&find, const String&rep)
 			}
 		}
 	}
-	
+
 	if(indexes.size()>0)
 	{
 		int dif = (rep.length() - find.length());
 		int totalSize = total + (indexes.size()*dif);
-		
+
 		if(rep.total>find.total)
 		{
 			characters = (char*)realloc(characters, totalSize+1);
 			characters[totalSize] = '\0';
-			
+
 			int counterNew = totalSize;
 			int counterOld = total;
 			int lastIndex = total;
@@ -1870,7 +1871,7 @@ void String::replace(const String&find, const String&rep)
 					}
 				}
 			}
-			
+
 			total = totalSize;
 		}
 		else if(rep.total<find.total)
@@ -1900,12 +1901,12 @@ void String::replace(const String&find, const String&rep)
 					}
 				}
 			}
-			
+
 			characters = (char*)realloc(characters, totalSize+1);
 			characters[totalSize] = '\0';
 			total = totalSize;
 		}
-		
+
 		int difCounter = 0;
 		for(int i=0; i<((int)indexes.size()); i++)
 		{
@@ -1974,12 +1975,12 @@ String String::trim() const
 	{
 		return String("");
 	}
-	
+
 	hitLetter = false;
 	i = total-1;
 
 	int endIndex = 0;
-	
+
 	while(!hitLetter && i>=0)
 	{
 		char c = charAt(i);
@@ -2002,9 +2003,9 @@ int String::indexOf(const String&str) const
 	{
 		return -1;
 	}
-	
+
 	int finish = total - str.total;
-	
+
 	for(int i=0; i<=finish; i++)
 	{
 		if(characters[i]==str.characters[0])
@@ -2018,7 +2019,7 @@ int String::indexOf(const String&str) const
 					j = str.total;
 				}
 			}
-			
+
 			if(match)
 			{
 				return i;
@@ -2026,7 +2027,7 @@ int String::indexOf(const String&str) const
 		}
 	}
 	return -1;
-	
+
 	/*int length = str.length();
 	if(str.length()>0 && total >= length)
 	{
@@ -2090,9 +2091,9 @@ int String::lastIndexOf(const String&str) const
 	{
 		return -1;
 	}
-	
+
 	int finish = (str.total-1);
-	
+
 	for(int i=(total-1); i>=finish; i--)
 	{
 		if(characters[i]==str.characters[str.total-1])
@@ -2106,7 +2107,7 @@ int String::lastIndexOf(const String&str) const
 					j = str.total;
 				}
 			}
-			
+
 			if(match)
 			{
 				return (i-(str.total-1));
@@ -2120,7 +2121,7 @@ String String::toLowerCase()
 {
 	char* str = new char[total+1];
 	str[total]='\0';
-	
+
 	for(int i=0; i<total; i++)
 	{
 		char c = characters[i];
@@ -2130,7 +2131,7 @@ String String::toLowerCase()
 		}
 		str[i] = c;
 	}
-	
+
 	String lowercase(str);
 	delete str;
 	return lowercase;
@@ -2140,7 +2141,7 @@ String String::toUpperCase()
 {
 	char* str = new char[total+1];
 	str[total]='\0';
-	
+
 	for(int i=0; i<total; i++)
 	{
 		char c = characters[i];
@@ -2150,7 +2151,7 @@ String String::toUpperCase()
 		}
 		str[i] = c;
 	}
-	
+
 	String lowercase(str);
 	delete str;
 	return lowercase;

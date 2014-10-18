@@ -6,7 +6,7 @@
 namespace Wormhole
 {
 	ArrayList<sf::TcpSocket*> Client::sockets = ArrayList<sf::TcpSocket*>();
-	sf::UdpSocket Client::broadcastSocket = sf::UdpSocket();
+	sf::UdpSocket Client::broadcastSocket;
 	sf::Thread* Client::broadcastThread = NULL;
 	bool Client::broadcasting = false;
 
@@ -15,7 +15,7 @@ namespace Wormhole
         if (broadcasting)
         {
 			broadcastSocket.bind(8008);
-			
+
 			broadcastThread = new sf::Thread(&Client::threadBroadcast);
 			broadcastThread->launch();
         }

@@ -3,12 +3,13 @@
 #include "../GlobalDefs.h"
 #include "../Output/Console.h"
 #include "../Application.h"
+#include <cmath>
 
 namespace AppEngine
 {
 	ArrayList<StringTexture*> Graphics2D::stringCache = ArrayList<StringTexture*>();
 	ArrayList<StringTexture*> Graphics2D::nextStringCache = ArrayList<StringTexture*>();
-	
+
 	void Graphics2D::reset()
 	{
 		setRotation(0,0,0);
@@ -25,7 +26,7 @@ namespace AppEngine
 		rect.h = Application::getHeight();
 		SDL_RenderSetViewport(renderer, &rect);
 	}
-	
+
 	void Graphics2D::updateStringCache()
 	{
 		for(int i=0; i<stringCache.size(); i++)
@@ -49,14 +50,14 @@ namespace AppEngine
 		stringCache = nextStringCache;
 		nextStringCache.clear();
 	}
-	
+
 	void Graphics2D::setClippedDrawRect(RectF&srcrect, RectF&dstrect)
 	{
 		float srcW = srcrect.right - srcrect.left;
 		float srcH = srcrect.bottom - srcrect.top;
 		float dstW = dstrect.right - dstrect.left;
 		float dstH = dstrect.bottom - dstrect.top;
-		
+
 		if(dstrect.left < 0)
 		{
 			float dif = 0 - dstrect.left;
@@ -86,7 +87,7 @@ namespace AppEngine
 			dstrect.bottom -= (float)((lev/srcH)*dstH);
 		}
 	}
-	
+
 	Vector2f Graphics2D::getRotationCoords(float x1, float y1)
 	{
 		if(Rotation == 0)
@@ -97,24 +98,24 @@ namespace AppEngine
 		{
 			float s = sinRad;
 			float c = cosRad;
-			
+
 			// translate point back to origin:
 			x1 -= (rotX*ScaleX);
 			y1 -= (rotY*ScaleY);
-			
+
 			// rotate point
 			float xnew = x1 * c - y1 * s;
 			float ynew = x1 * s + y1 * c;
-			
+
 			return Vector2f(xnew + (rotX*ScaleX), ynew + (rotY*ScaleY));
 		}
 	}
-	
+
 	Color Graphics2D::getColorWithAlpha(const Color&color)
 	{
 		return Color(color.r,color.g,color.b,(unsigned char)alpha);
 	}
-	
+
 	SDL_Texture*Graphics2D::getTextureFromString(const String&text)
 	{
 		for(int i=0; i<stringCache.size(); i++)
@@ -146,16 +147,16 @@ namespace AppEngine
 				return strTxtr->texture;
 			}
 		}
-		
+
 		SDL_Surface*surface = TTF_RenderText_Solid(font->getTTF(), text, Color::WHITE);
 		SDL_Texture*texture = SDL_CreateTextureFromSurface(renderer, surface);
 		SDL_FreeSurface(surface);
-		
+
 		StringTexture*strTxtr = new StringTexture(texture, font, text, font->getSize(), font->getStyle());
 		nextStringCache.add(strTxtr);
 		return texture;
 	}
-	
+
 	Graphics2D::Graphics2D(void)
 	{
 		color = Color::BLACK;
@@ -173,7 +174,7 @@ namespace AppEngine
 		ty = 0;
 		created = false;
 	}
-	
+
 	Graphics2D::Graphics2D(const Graphics2D&g)
 	{
 		color = g.color;
@@ -192,7 +193,7 @@ namespace AppEngine
 		renderer = g.renderer;
 		created = true;
 	}
-	
+
 	Graphics2D::~Graphics2D(void)
 	{
 		if(!created)
@@ -200,17 +201,17 @@ namespace AppEngine
 			delete defaultFont;
 		}
 	}
-	
+
 	Graphics2D Graphics2D::create()
 	{
 		return Graphics2D(*this);
 	}
-	
+
 	SDL_Renderer*Graphics2D::getRenderer()
 	{
 		return renderer;
 	}
-	
+
 	void Graphics2D::setRotation(float rotation)
 	{
 		this->Rotation = rotation;
@@ -222,11 +223,11 @@ namespace AppEngine
 		else
 		{
 			float radians = (float)degtorad(Rotation);
-			sinRad = sin(radians);
-			cosRad = cos(radians);
+			sinRad = std::sin(radians);
+			cosRad = std::cos(radians);
 		}
 	}
-	
+
 	void Graphics2D::setRotation(float rotation, float x1, float y1)
 	{
 		this->Rotation = rotation;
@@ -238,16 +239,16 @@ namespace AppEngine
 		else
 		{
 			float radians = (float)degtorad(Rotation);
-			sinRad = sin(radians);
-			cosRad = cos(radians);
+			sinRad = std::sin(radians);
+			cosRad = std::cos(radians);
 		}
 	}
-	
+
 	float Graphics2D::getRotation()
 	{
 		return Rotation;
 	}
-	
+
 	void Graphics2D::rotate(float rotation)
 	{
 		this->Rotation += rotation;
@@ -259,11 +260,11 @@ namespace AppEngine
 		else
 		{
 			float radians = (float)degtorad(Rotation);
-			sinRad = sin(radians);
-			cosRad = cos(radians);
+			sinRad = std::sin(radians);
+			cosRad = std::cos(radians);
 		}
 	}
-	
+
 	void Graphics2D::rotate(float rotation, float x1, float y1)
 	{
 		this->Rotation += rotation;
@@ -277,139 +278,139 @@ namespace AppEngine
 		else
 		{
 			float radians = (float)degtorad(Rotation);
-			sinRad = sin(radians);
-			cosRad = cos(radians);
+			sinRad = std::sin(radians);
+			cosRad = std::cos(radians);
 		}
 	}
-	
+
 	void Graphics2D::setScale(float scalex, float scaley)
 	{
 		ScaleX = scalex;
 		ScaleY = scaley;
 	}
-	
+
 	void Graphics2D::scale(float scalex, float scaley)
 	{
 		ScaleX*=scalex;
 		ScaleY*=scaley;
 	}
-	
+
 	Vector2f Graphics2D::getScale()
 	{
 		return Vector2f(ScaleX,ScaleY);
 	}
-	
+
 	void Graphics2D::setTranslation(float x1, float y1)
 	{
 		tx = x1;
 		ty = y1;
 	}
-	
+
 	void Graphics2D::translate(float x1, float y1)
 	{
 		tx+=x1;
 		ty+=y1;
 	}
-	
+
 	void Graphics2D::setColor(const Color&color)
 	{
 		this->color = color;
 	}
-	
+
 	Color Graphics2D::getColor()
 	{
 		return color;
 	}
-	
+
 	void Graphics2D::setImageMask(const Color&color)
 	{
 		this->imageColor = color;
 	}
-	
+
 	Color Graphics2D::getImageMask()
 	{
 		return imageColor;
 	}
-	
+
 	void Graphics2D::setAlpha(unsigned char alpha)
 	{
 		this->alpha = alpha;
 	}
-	
+
 	unsigned char Graphics2D::getAlpha()
 	{
 		return alpha;
 	}
-	
+
 	void Graphics2D::setFont(Font*font)
 	{
 		this->font = font;
 	}
-	
+
 	Font*Graphics2D::getDefaultFont()
 	{
 		return defaultFont;
 	}
-	
+
 	void Graphics2D::drawString(const String&text, float x1, float y1)
 	{
 		if(!text.equals(""))
 		{
 			SDL_Texture*texture = getTextureFromString(text);
-			
+
 			int w,h;
 			int access;
 			unsigned int format;
-			
+
 			SDL_QueryTexture(texture, &format, &access, &w, &h);
-			
+
 			Vector2f vect = getRotationCoords((x1+tx)*ScaleX,(y1+ty)*ScaleY);
 			x1 = vect.x;
 			y1 = vect.y;
 			y1 -= ((float)font->getSize()*ScaleY);
-			
+
 			SDL_Rect srcrect;
 			srcrect.x = 0;
 			srcrect.y = 0;
 			srcrect.w = w;
 			srcrect.h = h;
-			
+
 			SDL_Rect dstrect;
 			dstrect.x = (int)x1;
 			dstrect.y = (int)(y1 + ((float)font->getSize()/20) - 1);
 			dstrect.w = (int)(w*ScaleX);
 			dstrect.h = (int)(h*ScaleY);
-			
+
 			SDL_Point center;
 			center.x = 0;
 			center.y = 0;
-			
+
 			SDL_SetTextureAlphaMod(texture, alpha);
 			SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
-			
+
 			if(renderer!=NULL)
 			{
 				SDL_RenderCopyEx(renderer, texture, &srcrect, &dstrect, (double)Rotation, &center, SDL_FLIP_NONE);
 			}
 		}
 	}
-	
+
 	void Graphics2D::drawLine(float x1,float y1,float x2,float y2)
 	{
 		Vector2f v1 = getRotationCoords((x1+tx)*ScaleX,(y1+ty)*ScaleY);
 		Vector2f v2 = getRotationCoords((x2+tx)*ScaleX,(y2+ty)*ScaleY);
-		
+
 		if(renderer!=NULL)
 		{
 			SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, alpha);
 			SDL_RenderDrawLine(renderer, (int)v1.x, (int)v1.y, (int)v2.x, (int)v2.y);
 		}
 	}
-	
+
 	void Graphics2D::drawRect(float x1,float y1,float w,float h)
 	{
 		SDL_Rect rect;
-		
+
 		Vector2f vect = getRotationCoords((x1+tx)*ScaleX,(y1+ty)*ScaleY);
 		x1 = vect.x;
 		y1 = vect.y;
@@ -417,18 +418,18 @@ namespace AppEngine
 		rect.y = (int)y1;
 		rect.w = (int)(w*ScaleX);
 		rect.h = (int)(h*ScaleX);
-		
+
 		if(renderer!=NULL)
 		{
 			SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, alpha);
 			SDL_RenderDrawRect(renderer, &rect);
 		}
 	}
-	
+
 	void Graphics2D::fillRect(float x1,float y1,float w,float h)
 	{
 		SDL_Rect rect;
-		
+
 		Vector2f vect = getRotationCoords((x1+tx)*ScaleX,(y1+ty)*ScaleY);
 		x1 = vect.x;
 		y1 = vect.y;
@@ -436,14 +437,14 @@ namespace AppEngine
 		rect.y = (int)y1;
 		rect.w = (int)(w*ScaleX);
 		rect.h = (int)(h*ScaleX);
-		
+
 		if(renderer!=NULL)
 		{
 			SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, alpha);
 			SDL_RenderFillRect(renderer, &rect);
 		}
 	}
-	
+
 	/*void Graphics2D::drawOval(float x1,float y1,float w,float h)
 	{
 		sf::CircleShape oval;
@@ -464,19 +465,19 @@ namespace AppEngine
 			oval = sf::CircleShape(w/2);
 			oval.setScale(ScaleX,ScaleY);
 		}
-		
+
 		sf::Vector2f vect = getRotationCoords((x1+tx)*ScaleX,(y1+ty)*ScaleY);
 		x1 = vect.x;
 		y1 = vect.y;
 		oval.setPosition(x1,y1);
 		oval.setRotation(Rotation);
-		
+
 		oval.setOutlineColor(getColorWithAlpha(color));
 		oval.setOutlineThickness(1);
 		oval.setFillColor(sf::Color::Transparent);
 		window->draw(oval);
 	}*/
-	
+
 	/*void Graphics2D::fillOval(float x1,float y1,float w,float h)
 	{
 		sf::CircleShape oval;
@@ -497,91 +498,91 @@ namespace AppEngine
 			oval = sf::CircleShape(w/2);
 			oval.setScale(ScaleX,ScaleY);
 		}
-		
+
 		sf::Vector2f vect = getRotationCoords((x1+tx)*ScaleX,(y1+ty)*ScaleY);
 		x1 = vect.x;
 		y1 = vect.y;
 		oval.setPosition(x1,y1);
 		oval.setRotation(Rotation);
-		
+
 		oval.setFillColor(getColorWithAlpha(color));
 		window->draw(oval);
 	}*/
-	
+
 	void Graphics2D::drawImage(BufferedImage*img, float x1, float y1)
 	{
 		SDL_Texture*texture = img->getTexture();
 		unsigned int width = img->getWidth();
 		unsigned int height = img->getHeight();
-		
+
 		SDL_Rect srcrect;
 		srcrect.x = 0;
 		srcrect.y = 0;
 		srcrect.w = width;
 		srcrect.h = height;
-		
+
 		Vector2f vect = getRotationCoords((x1+tx)*ScaleX, (y1+ty)*ScaleY);
 		x1 = vect.x;
 		y1 = vect.y;
-		
+
 		SDL_Rect dstrect;
 		dstrect.x = (int)x1;
 		dstrect.y = (int)y1;
 		dstrect.w = (int)(width*ScaleX);
 		dstrect.h = (int)(height*ScaleY);
-		
+
 		SDL_Point center;
 		center.x = 0;
 		center.y = 0;
-		
+
 		SDL_SetTextureColorMod(texture, imageColor.r, imageColor.g, imageColor.b);
 		SDL_SetTextureAlphaMod(texture, alpha);
-		
+
 		if(renderer!=NULL)
 		{
 			SDL_RenderCopyEx(renderer, texture, &srcrect, &dstrect, (double)Rotation, &center, SDL_FLIP_NONE);
 		}
 	}
-	
+
 	void Graphics2D::drawImage(BufferedImage*img, float x1, float y1, float w, float h)
 	{
 		SDL_Texture*texture = img->getTexture();
 		unsigned int width = img->getWidth();
 		unsigned int height = img->getHeight();
-		
+
 		SDL_Rect srcrect;
 		srcrect.x = 0;
 		srcrect.y = 0;
 		srcrect.w = (int)width;
 		srcrect.h = (int)height;
-		
+
 		Vector2f vect = getRotationCoords((x1+tx)*ScaleX,(y1+ty)*ScaleY);
 		x1 = vect.x;
 		y1 = vect.y;
-		
+
 		SDL_Rect dstrect;
 		dstrect.x = (int)x1;
 		dstrect.y = (int)y1;
 		dstrect.w = (int)(w*ScaleX);
 		dstrect.h = (int)(h*ScaleY);
-		
+
 		SDL_Point center;
 		center.x = 0;
 		center.y = 0;
-		
+
 		SDL_SetTextureColorMod(texture, imageColor.r, imageColor.g, imageColor.b);
 		SDL_SetTextureAlphaMod(texture, alpha);
-		
+
 		if(renderer!=NULL)
 		{
 			SDL_RenderCopyEx(renderer, texture, &srcrect, &dstrect, (double)Rotation, &center, SDL_FLIP_NONE);
 		}
 	}
-	
+
 	void Graphics2D::drawImage(BufferedImage*img, float dx1, float dy1, float dx2, float dy2, int sx1, int sy1, int sx2, int sy2)
 	{
 		SDL_Texture*texture = img->getTexture();
-		
+
 		/*if(Rotation == 0)
 		{
 			RectF srcrectF;
@@ -589,40 +590,40 @@ namespace AppEngine
 			srcrectF.top = (float)sy1;
 			srcrectF.right = (float)sx2;
 			srcrectF.bottom = (float)sy2;
-			
+
 			float w = ((dx2 - dx1)*ScaleX);
 			float h = ((dy2 - dy1)*ScaleY);
-			
+
 			dx1 = (dx1+tx)*ScaleX;
 			dy1 = (dy1+ty)*ScaleY;
-			
+
 			RectF dstrectF;
 			dstrectF.left = (float)dx1;
 			dstrectF.top = (float)dy1;
 			dstrectF.right = dx1 + (float)w;
 			dstrectF.bottom = dy1 + (float)h;
-			
+
 			setClippedDrawRect(srcrectF, dstrectF);
-			
+
 			SDL_Rect srcrect;
 			srcrect.x = (int)srcrectF.left;
 			srcrect.y = (int)srcrectF.top;
 			srcrect.w = (int)(srcrectF.right - srcrectF.left);
 			srcrect.h = (int)(srcrectF.bottom - srcrectF.top);
-			
+
 			SDL_Rect dstrect;
 			dstrect.x = (int)dstrectF.left;
 			dstrect.y = (int)dstrectF.top;
 			dstrect.w = (int)(dstrectF.right - dstrectF.left);
 			dstrect.h = (int)(dstrectF.bottom - dstrectF.top);
-			
+
 			SDL_Point center;
 			center.x = 0;
 			center.y = 0;
-			
+
 			SDL_SetTextureColorMod(texture, imageColor.r, imageColor.g, imageColor.b);
 			SDL_SetTextureAlphaMod(texture, alpha);
-			
+
 			if(renderer!=NULL)
 			{
 				SDL_RenderCopyEx(renderer, texture, &srcrect, &dstrect, (double)Rotation, &center, SDL_FLIP_NONE);
@@ -635,27 +636,27 @@ namespace AppEngine
 			srcrect.y = (int)sy1;
 			srcrect.w = (int)(sx2 - sx1);
 			srcrect.h = (int)(sy2 - sy1);
-			
+
 			float w = ((dx2 - dx1)*ScaleX);
 			float h = ((dy2 - dy1)*ScaleY);
-			
+
 			Vector2f vect = getRotationCoords((dx1+tx)*ScaleX, (dy1+ty)*ScaleY);
 			dx1 = vect.x;
 			dy1 = vect.y;
-			
+
 			SDL_Rect dstrect;
 			dstrect.x = (int)dx1;
 			dstrect.y = (int)dy1;
 			dstrect.w = (int)w;
 			dstrect.h = (int)h;
-			
+
 			SDL_Point center;
 			center.x = 0;
 			center.y = 0;
-			
+
 			SDL_SetTextureColorMod(texture, imageColor.r, imageColor.g, imageColor.b);
 			SDL_SetTextureAlphaMod(texture, alpha);
-			
+
 			if(renderer!=NULL)
 			{
 				SDL_RenderCopyEx(renderer, texture, &srcrect, &dstrect, (double)Rotation, &center, SDL_FLIP_NONE);

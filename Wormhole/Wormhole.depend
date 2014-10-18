@@ -1,0 +1,425 @@
+# depslib dependency file v1.0
+1413645830 source:c:\users\matthew\dev\cpp\boilermakewormhole\appengine\application.cpp
+	"Application.h"
+
+1413645830 c:\users\matthew\dev\cpp\boilermakewormhole\appengine\application.h
+	"Graphics/Graphics2D.h"
+
+1413642986 c:\users\matthew\dev\cpp\boilermakewormhole\appengine\graphics\graphics2d.h
+	"../forwards.h"
+	"../Util/BufferedImage.h"
+	"../Util/Color.h"
+	"../Util/Vector2.h"
+	"../Util/Font.h"
+	"../GlobalDefs.h"
+
+1413644183 c:\users\matthew\dev\cpp\boilermakewormhole\appengine\forwards.h
+
+1413642986 c:\users\matthew\dev\cpp\boilermakewormhole\appengine\util\bufferedimage.h
+	"../forwards.h"
+	"String.h"
+	"SDL.h"
+	<vector>
+
+1413642986 c:\users\matthew\dev\cpp\boilermakewormhole\appengine\util\string.h
+	<string>
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_assert.h"
+	"SDL_atomic.h"
+	"SDL_audio.h"
+	"SDL_clipboard.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_filesystem.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_haptic.h"
+	"SDL_hints.h"
+	"SDL_loadso.h"
+	"SDL_log.h"
+	"SDL_messagebox.h"
+	"SDL_mutex.h"
+	"SDL_power.h"
+	"SDL_render.h"
+	"SDL_rwops.h"
+	"SDL_system.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_version.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<math.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_config.h
+	"SDL_platform.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_platform.h
+	"AvailabilityMacros.h"
+	"TargetConditionals.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\begin_code.h
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\close_code.h
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_assert.h
+	"SDL_config.h"
+	"begin_code.h"
+	<signal.h>
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_atomic.h
+	"SDL_stdinc.h"
+	"SDL_platform.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_atomic.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_clipboard.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<intrin.h>
+	<altivec.h>
+	<mmintrin.h>
+	<mm3dnow.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_quit.h"
+	"SDL_gesture.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_pixels.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_rect.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_pixels.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_surface.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_blendmode.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_blendmode.h
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keycode.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_keycode.h
+	"SDL_stdinc.h"
+	"SDL_scancode.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_scancode.h
+	"SDL_stdinc.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_gamecontroller.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_gesture.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_touch.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_filesystem.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_haptic.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_hints.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_log.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_messagebox.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_power.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_render.h
+	"SDL_stdinc.h"
+	"SDL_rect.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_system.h
+	"SDL_stdinc.h"
+	"SDL_keyboard.h"
+	"SDL_render.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394257193 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\include\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1413642986 c:\users\matthew\dev\cpp\boilermakewormhole\appengine\util\color.h
+	"../forwards.h"
+	"BufferedImage.h"
+	"SDL_pixels.h"
+
+1413642986 c:\users\matthew\dev\cpp\boilermakewormhole\appengine\util\vector2.h
+	"../forwards.h"
+
+1413642986 c:\users\matthew\dev\cpp\boilermakewormhole\appengine\util\font.h
+	"SDL_ttf.h"
+	"ArrayList.h"
+	"String.h"
+
+1376156543 c:\users\matthew\dev\cpp\boilermakewormhole\sdl2_ttf\i686-w64-mingw32\include\sdl_ttf.h
+	"SDL.h"
+	"begin_code.h"
+	"close_code.h"
+
+1413642986 c:\users\matthew\dev\cpp\boilermakewormhole\appengine\util\arraylist.h
+	<vector>
+
+1413644183 c:\users\matthew\dev\cpp\boilermakewormhole\appengine\globaldefs.h
+
+1413647540 source:c:\users\matthew\dev\cpp\boilermakewormhole\appengine\graphics\graphics2d.cpp
+	"Graphics2D.h"
+	"../GlobalDefs.h"
+	"../Output/Console.h"
+	"../Application.h"
+	<cmath>
+
+1413642986 c:\users\matthew\dev\cpp\boilermakewormhole\appengine\output\console.h
+	"../Util/String.h"
+
+1413644183 source:c:\users\matthew\dev\cpp\boilermakewormhole\appengine\output\console.cpp
+	"Console.h"
+	<iostream>
+	"SDL_rwops.h"
+
+1413642986 source:c:\users\matthew\dev\cpp\boilermakewormhole\appengine\util\bufferedimage.cpp
+	"BufferedImage.h"
+	"Image.h"
+	"../Output/Console.h"
+	"SDL_image.h"
+	"../Application.h"
+
+1413642986 c:\users\matthew\dev\cpp\boilermakewormhole\appengine\util\image.h
+	"../forwards.h"
+	"Color.h"
+
+1376156342 c:\users\matthew\dev\cpp\boilermakewormhole\sdl2_image\i686-w64-mingw32\include\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1413642986 source:c:\users\matthew\dev\cpp\boilermakewormhole\appengine\util\color.cpp
+	"Color.h"
+
+1413642986 source:c:\users\matthew\dev\cpp\boilermakewormhole\appengine\util\font.cpp
+	"Font.h"
+	"../Output/Console.h"
+
+1413642986 source:c:\users\matthew\dev\cpp\boilermakewormhole\appengine\util\image.cpp
+	"Image.h"
+	"BufferedImage.h"
+	"SDL_image.h"
+
+1413647561 source:c:\users\matthew\dev\cpp\boilermakewormhole\appengine\util\string.cpp
+	"String.h"
+	<iostream>
+	<sstream>
+	<vector>
+	<iomanip>
+	<stdlib.h>
+	"stdio.h"
+	<math.h>
+	<cstring>
+
+1413645830 source:c:\users\matthew\dev\cpp\boilermakewormhole\main.cpp
+	"MainApp.h"
+
+1413645830 c:\users\matthew\dev\cpp\boilermakewormhole\mainapp.h
+	"AppEngine\Application.h"
+
