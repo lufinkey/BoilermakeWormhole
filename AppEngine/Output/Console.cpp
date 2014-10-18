@@ -1,8 +1,9 @@
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "Console.h"
 #include <iostream>
 #include "SDL_rwops.h"
-#include "../ObjCBridge/ObjCBridge.h"
 
 namespace AppEngine
 {
@@ -11,8 +12,7 @@ namespace AppEngine
 	
 	void Console::Write(const String&text)
 	{
-		//std::cout << text;
-		AppEngine_Log(text);
+		std::cout << text;
 		if(tofile)
 		{
 			SDL_RWops*file = SDL_RWFromFile(outputFile, "a+");
@@ -24,8 +24,7 @@ namespace AppEngine
 	
 	void Console::WriteLine(const String&text)
 	{
-		//std::cout << text << std::endl;
-		AppEngine_Log(text + '\n');
+		std::cout << text << std::endl;
 		if(tofile)
 		{
 			SDL_RWops*file = SDL_RWFromFile(outputFile, "a+");

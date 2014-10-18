@@ -19,14 +19,31 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AppEngine\Application.cpp" />
+    <ClCompile Include="AppEngine\Graphics\Graphics2D.cpp" />
+    <ClCompile Include="AppEngine\Output\Console.cpp" />
+    <ClCompile Include="AppEngine\Util\BufferedImage.cpp" />
+    <ClCompile Include="AppEngine\Util\Color.cpp" />
+    <ClCompile Include="AppEngine\Util\Font.cpp" />
+    <ClCompile Include="AppEngine\Util\Image.cpp" />
+    <ClCompile Include="AppEngine\Util\String.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="String.cpp" />
     <ClCompile Include="Wormhole\Client.cpp" />
     <ClCompile Include="Wormhole\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ArrayList.h" />
-    <ClInclude Include="String.h" />
+    <ClInclude Include="AppEngine\Application.h" />
+    <ClInclude Include="AppEngine\forwards.h" />
+    <ClInclude Include="AppEngine\GlobalDefs.h" />
+    <ClInclude Include="AppEngine\Graphics\Graphics2D.h" />
+    <ClInclude Include="AppEngine\Output\Console.h" />
+    <ClInclude Include="AppEngine\Util\ArrayList.h" />
+    <ClInclude Include="AppEngine\Util\BufferedImage.h" />
+    <ClInclude Include="AppEngine\Util\Color.h" />
+    <ClInclude Include="AppEngine\Util\Font.h" />
+    <ClInclude Include="AppEngine\Util\Image.h" />
+    <ClInclude Include="AppEngine\Util\String.h" />
+    <ClInclude Include="AppEngine\Util\Vector2.h" />
     <ClInclude Include="Wormhole\Client.h" />
     <ClInclude Include="Wormhole\Server.h" />
   </ItemGroup>
@@ -115,14 +132,14 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>SFML\include;SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SFML\include;SDL\include;SDL2_image\include;SDL2_ttf\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-network-s-d.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>SFML\extlibs\libs-msvc\x86;SFML\staticlib\debug;SDL\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-network-s-d.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>SFML\extlibs\libs-msvc\x86;SFML\staticlib\debug;SDL\lib\x86;SDL2_image\lib\x86;SDL2_ttf\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

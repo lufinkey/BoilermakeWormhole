@@ -71,16 +71,16 @@ namespace AppEngine
 			srcrect.top += lev;
 			dstrect.top += (float)((lev/srcH)*dstH);
 		}
-		if(dstrect.right > View::Width())
+		if(dstrect.right > Application::getWidth())
 		{
-			float dif = dstrect.right - View::Width();
+			float dif = dstrect.right - Application::getWidth();
 			float lev = (float)((int)((dif/dstW)*srcW));
 			srcrect.right -= lev;
 			dstrect.right -= (float)((lev/srcW)*dstW);
 		}
-		if(dstrect.bottom > View::Height())
+		if(dstrect.bottom > Application::getHeight())
 		{
-			float dif = dstrect.bottom - View::Height();
+			float dif = dstrect.bottom - Application::getHeight();
 			float lev = (float)((int)((dif/dstH)*srcH));
 			srcrect.bottom -= lev;
 			dstrect.bottom -= (float)((lev/srcH)*dstH);
@@ -221,7 +221,7 @@ namespace AppEngine
 		}
 		else
 		{
-			float radians = degtorad(Rotation);
+			float radians = (float)degtorad(Rotation);
 			sinRad = sin(radians);
 			cosRad = cos(radians);
 		}
@@ -237,7 +237,7 @@ namespace AppEngine
 		}
 		else
 		{
-			float radians = degtorad(Rotation);
+			float radians = (float)degtorad(Rotation);
 			sinRad = sin(radians);
 			cosRad = cos(radians);
 		}
@@ -258,7 +258,7 @@ namespace AppEngine
 		}
 		else
 		{
-			float radians = degtorad(Rotation);
+			float radians = (float)degtorad(Rotation);
 			sinRad = sin(radians);
 			cosRad = cos(radians);
 		}
@@ -276,7 +276,7 @@ namespace AppEngine
 		}
 		else
 		{
-			float radians = degtorad(Rotation);
+			float radians = (float)degtorad(Rotation);
 			sinRad = sin(radians);
 			cosRad = cos(radians);
 		}

@@ -1,11 +1,16 @@
 #include "Application.h"
 
-
-Application::Application()
+namespace AppEngine
 {
+	Application::Application()
+	{
+		//
+	}
+
+
+	Application::~Application()
+	{
+		//
+	}
 }
 
-
-Application::~Application()
-{
-}

@@ -1,6 +1,6 @@
 
 #include <SFML/Network.hpp>
-#include "../AppEngine/ArrayList.h"
+#include "../AppEngine/Util/ArrayList.h"
 
 #pragma once
 
