@@ -42,6 +42,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+*.cbp
+
 # Libraries
 SFML/
 Debug\ Static/
