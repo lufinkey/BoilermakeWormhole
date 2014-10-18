@@ -62,6 +62,11 @@ namespace Wormhole
 
 			ips.add(sender.toString);
 
+			for (int i = 0; i < ips.size(); i++)
+			{
+				AppEngine::Console::WriteLine(ips.get(i));
+			}
+
 			sf::sleep(sf::milliseconds(1000));
 		}
 	}
