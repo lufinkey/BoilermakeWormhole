@@ -8,6 +8,8 @@
 
 namespace Wormhole
 {
+	typedef void(*WormholePeerDiscoveredCallback)(const String&);
+
 	class Server
 	{
 	private:
@@ -30,6 +32,8 @@ namespace Wormhole
 
 		void pollingThreadCallback();
 
+		WormholePeerDiscoveredCallback peerDiscoveredCallback;
+
 	public:
 		Server();
 		~Server();
@@ -38,7 +42,7 @@ namespace Wormhole
 		void stopPolling();
 
 		bool isPolling();
-
 		ArrayList<String> getIPList();
+		void setPeerDiscoveredCallback(WormholePeerDiscoveredCallback callback);
 	};
 }

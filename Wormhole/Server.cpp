@@ -10,6 +10,7 @@ namespace Wormhole
 		pollingThread = NULL;
 		port = 8009;
 		pollingFrequency = 1000;
+		peerDiscoveredCallback = NULL;
 	}
 
 	Server::~Server()
@@ -103,6 +104,10 @@ namespace Wormhole
 						data.ipAddress = senderString;
 						data.lastHeardTime = timeData.getElapsedTime().asMilliseconds();
 						IPList.add(data);
+						if(peerDiscoveredCallback != NULL)
+						{
+							peerDiscoveredCallback(senderString);
+						}
 					}
 				}
 			}
@@ -136,5 +141,10 @@ namespace Wormhole
 		IPList_mutex.unlock();
 
 		return IPs;
+	}
+
+	void Server::setPeerDiscoveredCallback(WormholePeerDiscoveredCallback callback)
+	{
+		peerDiscoveredCallback = callback;
 	}
 }
