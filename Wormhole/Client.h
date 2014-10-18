@@ -17,7 +17,7 @@ namespace Wormhole
 		static void threadBroadcast();
 
 	public:
-	    static void broadcast();
+	    static void startBroadcast();
 		static sf::Socket::Status connect(const sf::IpAddress& ipAddress, unsigned short port);
 	};
 }
