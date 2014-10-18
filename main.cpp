@@ -35,4 +35,6 @@ int main(int argc, char* argv[])
 	window = SDL_CreateWindow(NULL, 0, 0, 300, 300, SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS | SDL_WINDOW_SHOWN);
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+
 }
