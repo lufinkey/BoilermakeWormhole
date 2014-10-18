@@ -1,13 +1,35 @@
 
 #include "Client.h"
+#include "String.h"
+#include "../AppEngine/Output/Console.h"
 
 namespace Wormhole
 {
 	ArrayList<sf::TcpSocket*> Client::sockets = ArrayList<sf::TcpSocket*>();
 
-    void Client::broadcast()
+    void Client::startBroadcast()
     {
+        if (broadcasting)
+        {
+            broadcastSocket.bind(8008);
 
+            broadcastThread = new sf::Thread(&Client::threadBroadcast, this);
+            broadcastThread.launch();
+        }
+        else
+        {
+            Console::WriteLine("Already broadcasting");
+        }
+    }
+
+    void Client::threadBroadcast()
+    {
+        while (true)
+        {
+            sf::sleep(sf::millisecond(15000));
+            String identity = sf::IpAddress::getLocalAddress().toString();
+            broadcastSocket.send((const char*)identity, identity.length() + 1, sf::IpAddress::Broadcast, 8009);
+        }
     }
 
 	sf::Socket::Status Client::connect(const sf::IpAddress& ipAddress, unsigned short port)
