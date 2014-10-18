@@ -15,5 +15,5 @@
 
 int main(int argc, char* argv[])
 {
-	
+	//TODO add bending of space and time
 }
