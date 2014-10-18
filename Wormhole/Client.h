@@ -14,6 +14,7 @@ namespace Wormhole
 		static sf::UdpSocket broadcastSocket;
 		static sf::Thread* broadcastThread;
 		static bool broadcasting;
+
 		static void threadBroadcast();
 
 	public:

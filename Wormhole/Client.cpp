@@ -6,6 +6,9 @@
 namespace Wormhole
 {
 	ArrayList<sf::TcpSocket*> Client::sockets = ArrayList<sf::TcpSocket*>();
+	sf::UdpSocket Client::broadcastSocket = sf::UdpSocket();
+	sf::Thread* Client::broadcastThread = NULL;
+	bool Client::broadcasting = false;
 
     void Client::startBroadcast()
     {

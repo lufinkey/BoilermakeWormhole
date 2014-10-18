@@ -4,7 +4,7 @@
 namespace Wormhole
 {
 	//TcpNode
-
+	
 	Server::TcpNode::TcpNode(unsigned short port)
 	{
 		this->port = port;
