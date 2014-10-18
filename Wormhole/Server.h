@@ -38,5 +38,7 @@ namespace Wormhole
 		void stopPolling();
 
 		bool isPolling();
+
+		ArrayList<String> getIPList();
 	};
 }

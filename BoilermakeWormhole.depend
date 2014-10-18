@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1413648443 source:c:\users\matthew\dev\cpp\boilermakewormhole\appengine\application.cpp
+1413655155 source:c:\users\matthew\dev\cpp\boilermakewormhole\appengine\application.cpp
 	"Application.h"
 	"Output\Console.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
+	<SDL_image.h>
+	<SDL_ttf.h>
 	"Input\Keys.h"
 	<time.h>
+	<SDL_syswm.h>
 
 1413648443 c:\users\matthew\dev\cpp\boilermakewormhole\appengine\application.h
 	"Graphics/Graphics2D.h"
@@ -625,4 +626,20 @@
 	<SFML/Network.hpp>
 	"../AppEngine/Util/String.h"
 	"../AppEngine/Util/ArrayList.h"
+
+1394937197 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\i686-w64-mingw32\include\sdl2\sdl_syswm.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	<windows.h>
+	<Inspectable.h>
+	<X11/Xlib.h>
+	<X11/Xatom.h>
+	<directfb.h>
+	<Cocoa/Cocoa.h>
+	<UIKit/UIKit.h>
+	<mir_toolkit/mir_client_library.h>
+	"close_code.h"
 

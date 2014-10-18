@@ -80,7 +80,7 @@ namespace Wormhole
 				bool containsIP = false;
 
 				String senderString = sender.toString();
-			
+
 				for(int i = 0; i < IPList.size(); i++)
 				{
 					IPData data = IPList.get(i);
@@ -121,5 +121,18 @@ namespace Wormhole
 	bool Server::isPolling()
 	{
 		return polling;
+	}
+
+	ArrayList<String> Server::getIPList()
+	{
+		IPList_mutex.lock();
+		ArrayList<String> IPs;
+
+		for (int i = 0; i < IPList.size(); i++)
+		{
+			IPs.add(IPList.get(i).ipAddress);
+		}
+
+		return IPs;
 	}
 }

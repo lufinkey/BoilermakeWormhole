@@ -1,7 +1,5 @@
 
 #include "MainApp.h"
-#include "Wormhole/Client.h"
-#include "Wormhole/Server.h"
 
 #undef main
 
@@ -18,11 +16,6 @@
 
 int main(int argc, char* argv[])
 {
-	Wormhole::Server server;
-	Wormhole::Client client;
-	server.startPolling(800813, 1000);
-	client.startBroadcast(800813, 1000);
-
 	MainApp* mainApp = new MainApp();
 	int retVal = mainApp->run(300,300);
 	delete mainApp;
