@@ -52,6 +52,8 @@ SDL_*/
 #Project Specific Folders
 Debug\ Static/
 
+Wormhole/bin/
+Wormhole/obj/
 
 
 *.dll
