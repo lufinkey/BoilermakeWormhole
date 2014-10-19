@@ -7,44 +7,60 @@ namespace AppEngine
 	DragDropTarget::DragDropTarget(Application* app)
 	{
 		this->app = app;
+
+		FReferences = 1;
+		FAcceptFormat = false;
+	}
+
+	DragDropTarget::~DragDropTarget()
+	{
+		//
 	}
 
 	STDMETHODIMP DragDropTarget::QueryInterface(REFIID riid, void **ppv)
 	{
-		return S_OK;
+		*ppv = this;
+		AddRef();
+		return NOERROR;
 	}
 
 	STDMETHODIMP_(ULONG) DragDropTarget::AddRef()
 	{
-		return S_OK;
+		return ++FReferences;
 	}
 
 	STDMETHODIMP_(ULONG) DragDropTarget::Release()
 	{
-		return S_OK;
+		if (--FReferences == 0) 
+		{
+			delete this; 
+			return 0; 
+		} 
+		return FReferences;
 	}
 
 	STDMETHODIMP DragDropTarget::DragEnter(IDataObject *pDataObj, DWORD grfKeyState, POINTL pt, DWORD *pdwEffect)
 	{
 		*pdwEffect = app->onDropEnter(pDataObj, Vector2<long>(pt.x, pt.y));
-		return S_OK;
+		return NOERROR; 
 	}
 
 	STDMETHODIMP DragDropTarget::DragLeave()
 	{
 		app->onDropLeave();
-		return S_OK;
+		FAcceptFormat = false;
+		return NOERROR;
 	}
 
 	STDMETHODIMP DragDropTarget::DragOver(DWORD grfKeyState, POINTL pt, DWORD *pdwEffect)
 	{
 		*pdwEffect = app->onDropDragOver(Vector2<long>(pt.x, pt.y));
-		return S_OK;
+		return NOERROR;
 	}
 
 	STDMETHODIMP DragDropTarget::Drop(IDataObject *pDataObj, DWORD grfKeyState, POINTL pt, DWORD*pdwEffect)
 	{
 		*pdwEffect = app->onDrop(pDataObj, Vector2<long>(pt.x, pt.y));
-		return S_OK;
+		return NOERROR;
 	}
 }

@@ -22,7 +22,7 @@ namespace Wormhole
 		total = size;
 	}
 	
-	DataVoid::DataVoid(void*data, unsigned int size)
+	DataVoid::DataVoid(const void*data, unsigned int size)
 	{
 		if(size>0)
 		{

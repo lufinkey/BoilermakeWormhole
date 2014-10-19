@@ -28,9 +28,6 @@
     <Filter Include="Header Files\AppEngine\Util">
       <UniqueIdentifier>{a8f02540-455e-4f45-9c2d-7e118621cab2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\AppEngine\Graphics">
-      <UniqueIdentifier>{93961d7a-0606-48bf-b8bc-9abd2a70ca3d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\AppEngine\Util">
       <UniqueIdentifier>{80f7ffb4-2964-4900-b675-524e7940aea3}</UniqueIdentifier>
     </Filter>
@@ -49,6 +46,9 @@
     <Filter Include="Source Files\AppEngine\Input">
       <UniqueIdentifier>{a608ba10-366d-4a0f-9173-5f87334eaf3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\AppEngine\Graphics">
+      <UniqueIdentifier>{0d0d9975-4f03-4228-80b0-2c1307585951}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,12 +59,6 @@
     </ClCompile>
     <ClCompile Include="Wormhole\Server.cpp">
       <Filter>Source Files\Wormhole</Filter>
-    </ClCompile>
-    <ClCompile Include="AppEngine\Application.cpp">
-      <Filter>Source Files\AppEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="AppEngine\Util\BufferedImage.cpp">
-      <Filter>Source Files\AppEngine\Util</Filter>
     </ClCompile>
     <ClCompile Include="AppEngine\Util\Color.cpp">
       <Filter>Source Files\AppEngine\Util</Filter>
@@ -78,14 +72,8 @@
     <ClCompile Include="AppEngine\Util\String.cpp">
       <Filter>Source Files\AppEngine\Util</Filter>
     </ClCompile>
-    <ClCompile Include="AppEngine\Graphics\Graphics2D.cpp">
-      <Filter>Source Files\AppEngine\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="AppEngine\Output\Console.cpp">
       <Filter>Source Files\AppEngine\Output</Filter>
-    </ClCompile>
-    <ClCompile Include="MainApp.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AppEngine\Input\Keys.cpp">
       <Filter>Source Files\AppEngine\Input</Filter>
@@ -96,6 +84,18 @@
     <ClCompile Include="AppEngine\Input\DragDropTarget.cpp">
       <Filter>Source Files\AppEngine\Input</Filter>
     </ClCompile>
+    <ClCompile Include="AppEngine\Graphics\Graphics2D.cpp">
+      <Filter>Source Files\AppEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="MainApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AppEngine\Util\BufferedImage.cpp">
+      <Filter>Source Files\AppEngine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="AppEngine\Application.cpp">
+      <Filter>Source Files\AppEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Wormhole\Client.h">
@@ -104,13 +104,7 @@
     <ClInclude Include="Wormhole\Server.h">
       <Filter>Header Files\Wormhole</Filter>
     </ClInclude>
-    <ClInclude Include="AppEngine\Application.h">
-      <Filter>Header Files\AppEngine</Filter>
-    </ClInclude>
     <ClInclude Include="AppEngine\Util\ArrayList.h">
-      <Filter>Header Files\AppEngine\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="AppEngine\Util\BufferedImage.h">
       <Filter>Header Files\AppEngine\Util</Filter>
     </ClInclude>
     <ClInclude Include="AppEngine\Util\Color.h">
@@ -128,9 +122,6 @@
     <ClInclude Include="AppEngine\Util\Vector2.h">
       <Filter>Header Files\AppEngine\Util</Filter>
     </ClInclude>
-    <ClInclude Include="AppEngine\Graphics\Graphics2D.h">
-      <Filter>Header Files\AppEngine\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="AppEngine\Output\Console.h">
       <Filter>Header Files\AppEngine\Output</Filter>
     </ClInclude>
@@ -139,9 +130,6 @@
     </ClInclude>
     <ClInclude Include="AppEngine\forwards.h">
       <Filter>Header Files\AppEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="MainApp.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AppEngine\Input\Keys.h">
       <Filter>Header Files\AppEngine\Input</Filter>
@@ -154,6 +142,18 @@
     </ClInclude>
     <ClInclude Include="AppEngine\Input\DragDropTarget.h">
       <Filter>Header Files\AppEngine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\Application.h">
+      <Filter>Header Files\AppEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\Graphics\Graphics2D.h">
+      <Filter>Header Files\AppEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="MainApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\Util\BufferedImage.h">
+      <Filter>Header Files\AppEngine\Util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

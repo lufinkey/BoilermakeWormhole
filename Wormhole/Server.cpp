@@ -116,6 +116,11 @@ namespace Wormhole
 		return socket.getRemoteAddress().toString();
 	}
 
+	unsigned short Server::TcpNode::getPort()
+	{
+		return port;
+	}
+
 	Server::Server()
 	{
 		polling = false;
@@ -252,6 +257,77 @@ namespace Wormhole
 		TcpNode* node = new TcpNode(this, port);
 		nodes.add(node);
 		node->accept();
+
+		nodes_mutex.unlock();
+	}
+
+	bool Server::nodeConnected(const String& ipAddress)
+	{
+		nodes_mutex.lock();
+
+		for(int i = 0; i < nodes.size(); i++)
+		{
+			TcpNode* node = nodes.get(i);
+			if(node->getIP().equals(ipAddress))
+			{
+				node->pollReceivedData();
+				i = nodes.size();
+			}
+		}
+
+		nodes_mutex.unlock();
+	}
+
+	void Server::closeNode(unsigned short port)
+	{
+		nodes_mutex.lock();
+
+		for(int i = 0; i < nodes.size(); i++)
+		{
+			TcpNode* node = nodes.get(i);
+			if(node->getPort() == port && !node->isConnected())
+			{
+				nodes.remove(i);
+				delete node;
+				i = nodes.size();
+			}
+		}
+
+		nodes_mutex.unlock();
+	}
+
+	void Server::closeNode(const String& ipAddress)
+	{
+		nodes_mutex.lock();
+
+		for(int i = 0; i < nodes.size(); i++)
+		{
+			TcpNode* node = nodes.get(i);
+			if(node->getIP().equals(ipAddress))
+			{
+				node->disconnect();
+				nodes.remove(i);
+				delete node;
+				i = nodes.size();
+			}
+		}
+
+		nodes_mutex.unlock();
+	}
+
+	void Server::startNodePollingRecievedData(const String& ipAddress)
+	{
+		nodes_mutex.lock();
+
+		for(int i = 0; i < nodes.size(); i++)
+		{
+			TcpNode* node = nodes.get(i);
+			if(node->getIP().equals(ipAddress))
+			{
+				node->pollReceivedData();
+				i = nodes.size();
+			}
+		}
 
 		nodes_mutex.unlock();
 	}

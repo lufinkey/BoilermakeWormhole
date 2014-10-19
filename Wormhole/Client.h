@@ -82,7 +82,7 @@ namespace Wormhole
 		void disconnectPeer(const String& ipAddress);
 
 		void sendToPeers(DataVoid& dataVoid);
-		void sendToPeers(void*data, unsigned int size);
+		void sendToPeers(const void*data, unsigned int size);
 
 		bool isBroadcasting();
 	};

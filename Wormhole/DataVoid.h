@@ -12,7 +12,7 @@ namespace Wormhole
 	public:
 		DataVoid();
 		DataVoid(unsigned int size);
-		DataVoid(void*data, unsigned int size);
+		DataVoid(const void*data, unsigned int size);
 		DataVoid(const DataVoid&data);
 		virtual ~DataVoid();
 		

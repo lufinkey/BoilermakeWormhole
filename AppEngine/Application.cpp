@@ -51,7 +51,7 @@ namespace AppEngine
 	
 	DWORD Application::onDropEnter(IDataObject* dataObj, Vector2<long> point)
 	{
-		return DROPEFFECT_LINK;
+		return DROPEFFECT_NONE;
 	}
 
 	void Application::onDropLeave()
@@ -61,12 +61,12 @@ namespace AppEngine
 
 	DWORD Application::onDropDragOver(Vector2<long> point)
 	{
-		return DROPEFFECT_LINK;
+		return DROPEFFECT_NONE;
 	}
 
 	DWORD Application::onDrop(IDataObject* dataObj, Vector2<long> point)
 	{
-		return DROPEFFECT_LINK;
+		return DROPEFFECT_NONE;
 	}
 
 	int Application::run(unsigned int width, unsigned int height, bool borderless)
@@ -112,17 +112,7 @@ namespace AppEngine
 			return 1;
 		}
 
-		SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
-
-		struct SDL_SysWMinfo wmInfo; 
-		SDL_VERSION(&wmInfo.version); 
-		SDL_GetWindowWMInfo(window, &wmInfo);
-
-#ifdef _WIN32
-		dropTarget = new DragDropTarget(this);
-		HWND hWnd = wmInfo.info.win.window;
-		RegisterDragDrop(hWnd,dropTarget);
-#endif
+		//SDL_EventState(SDL_DROPFILE, SDL_DISABLE);
 
 		windowWidth = width;
 		windowHeight = height;
@@ -135,6 +125,17 @@ namespace AppEngine
 			appRunning = false;
 			return 1;
 		}
+
+		struct SDL_SysWMinfo wmInfo; 
+		SDL_VERSION(&wmInfo.version); 
+		SDL_GetWindowWMInfo(window, &wmInfo);
+
+#ifdef _WIN32
+		OleInitialize(NULL);
+		dropTarget = new DragDropTarget(this);
+		HWND hWnd = wmInfo.info.win.window;
+		RegisterDragDrop(hWnd,(LPDROPTARGET)dropTarget);
+#endif
 
 		appInstance = this;
 
@@ -204,8 +205,8 @@ namespace AppEngine
 
 				case SDL_DROPFILE:
 				{
-					Console::WriteLine(event.drop.file);
-					SDL_free(event.drop.file);
+					//Console::WriteLine(event.drop.file);
+					//SDL_free(event.drop.file);
 				}
 				break;
 

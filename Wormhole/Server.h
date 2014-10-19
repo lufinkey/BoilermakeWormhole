@@ -47,6 +47,7 @@ namespace Wormhole
 			bool isPollingReceivedData();
 
 			String getIP();
+			unsigned short getPort();
 		};
 
 		typedef struct
@@ -83,6 +84,8 @@ namespace Wormhole
 
 		void startPolling(unsigned short discoveryPort, long pollingFrequency=1000);
 		void stopPolling();
+
+		void startNodePollingRecievedData(const String& ipAddress);
 
 		void openNode(unsigned short port);
 		bool nodeConnected(const String& ipAddress);

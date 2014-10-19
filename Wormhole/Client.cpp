@@ -236,7 +236,7 @@ namespace Wormhole
 		peers_mutex.unlock();
 	}
 
-	void Client::sendToPeers(void* data, unsigned int size)
+	void Client::sendToPeers(const void* data, unsigned int size)
 	{
 		sendToPeers(DataVoid(data, size));
 	}
