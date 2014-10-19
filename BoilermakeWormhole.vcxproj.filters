@@ -54,12 +54,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Wormhole\Client.cpp">
-      <Filter>Source Files\Wormhole</Filter>
-    </ClCompile>
-    <ClCompile Include="Wormhole\Server.cpp">
-      <Filter>Source Files\Wormhole</Filter>
-    </ClCompile>
     <ClCompile Include="AppEngine\Util\Color.cpp">
       <Filter>Source Files\AppEngine\Util</Filter>
     </ClCompile>
@@ -96,14 +90,14 @@
     <ClCompile Include="AppEngine\Application.cpp">
       <Filter>Source Files\AppEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Wormhole\Broadcaster.cpp">
+      <Filter>Source Files\Wormhole</Filter>
+    </ClCompile>
+    <ClCompile Include="Wormhole\IpPoller.cpp">
+      <Filter>Source Files\Wormhole</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Wormhole\Client.h">
-      <Filter>Header Files\Wormhole</Filter>
-    </ClInclude>
-    <ClInclude Include="Wormhole\Server.h">
-      <Filter>Header Files\Wormhole</Filter>
-    </ClInclude>
     <ClInclude Include="AppEngine\Util\ArrayList.h">
       <Filter>Header Files\AppEngine\Util</Filter>
     </ClInclude>
@@ -154,6 +148,12 @@
     </ClInclude>
     <ClInclude Include="AppEngine\Util\BufferedImage.h">
       <Filter>Header Files\AppEngine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Wormhole\Broadcaster.h">
+      <Filter>Header Files\Wormhole</Filter>
+    </ClInclude>
+    <ClInclude Include="Wormhole\IpPoller.h">
+      <Filter>Header Files\Wormhole</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

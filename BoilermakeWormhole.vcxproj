@@ -31,9 +31,9 @@
     <ClCompile Include="AppEngine\Util\String.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainApp.cpp" />
-    <ClCompile Include="Wormhole\Client.cpp" />
+    <ClCompile Include="Wormhole\Broadcaster.cpp" />
     <ClCompile Include="Wormhole\DataVoid.cpp" />
-    <ClCompile Include="Wormhole\Server.cpp" />
+    <ClCompile Include="Wormhole\IpPoller.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppEngine\Application.h" />
@@ -52,9 +52,9 @@
     <ClInclude Include="AppEngine\Util\String.h" />
     <ClInclude Include="AppEngine\Util\Vector2.h" />
     <ClInclude Include="MainApp.h" />
-    <ClInclude Include="Wormhole\Client.h" />
+    <ClInclude Include="Wormhole\Broadcaster.h" />
     <ClInclude Include="Wormhole\DataVoid.h" />
-    <ClInclude Include="Wormhole\Server.h" />
+    <ClInclude Include="Wormhole\IpPoller.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{09758508-A953-4CDB-9C65-05AE67719152}</ProjectGuid>

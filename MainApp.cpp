@@ -1,53 +1,45 @@
 
 #include "MainApp.h"
 #include "AppEngine/Output/Console.h"
-#include "Wormhole\Client.h"
-#include "Wormhole\Server.h"
+#include "Wormhole\Broadcaster.h"
+#include "Wormhole\IpPoller.h"
 
-Wormhole::Server server;
-Wormhole::Client client;
+Wormhole::Broadcaster broadcaster;
+Wormhole::IpPoller poller;
 
 void onPeerDiscovered(const String& ipAddress)
 {
 	Console::WriteLine((String)"Discovered ip: " + ipAddress);
-	server.openNode(8009);
-	client.connectPeer(ipAddress, 8009);
-}
-
-void onPeerConnected(const String& ipAddress)
-{
-	Console::WriteLine((String)"Connected ip: " + ipAddress);
-	server.startNodePollingRecievedData(ipAddress);
 }
 
 void onPeerLost(const String& ipAddress)
 {
 	Console::WriteLine((String)"Lost ip: " + ipAddress);
-	server.closeNode(ipAddress);
-	client.disconnectPeer(ipAddress);
 }
 
 void onDataReceived(const String& ipAddress, const void* data, unsigned int size)
 {
 	String str = (const char*)data;
 	Console::WriteLine((String)"Data Received from ip: " + ipAddress + " : " + str);
-	//Do something with this shit
 }
 
 MainApp::MainApp()
 {
-	Console::WriteLine((String)"Local ip: " + sf::IpAddress::getLocalAddress().toString());
-	server.startPolling(8008, 1000);
-	client.startBroadcast(8008, 1000);
-	server.setPeerDiscoveredCallback(&onPeerDiscovered);
-	server.setPeerConnectedCallback(&onPeerConnected);
-	server.setPeerLostCallback(&onPeerLost);
-	server.setDataReceivedCallback(&onDataReceived);
+	//
 }
 
 MainApp::~MainApp()
 {
 	//
+}
+
+void MainApp::startServerClient()
+{
+	Console::WriteLine((String)"Local ip: " + sf::IpAddress::getLocalAddress().toString());
+	broadcaster.startBroadcast(8009, 1000);
+	poller.startPolling(8009, 1000);
+	poller.setPeerDiscoveredCallback(&onPeerDiscovered);
+	poller.setPeerLostCallback(&onPeerLost);
 }
 
 void MainApp::Initialize()
@@ -138,10 +130,10 @@ DWORD MainApp::onDrop(IDataObject* dataObj, Vector2<long> point)
 
 void MainApp::onFileDropped(const String& str)
 {
-	client.sendToPeers((const char*)str, str.length()+1);
+	//
 }
 
 void MainApp::onTextDropped(const String& str)
 {
-	client.sendToPeers((const char*)str, str.length()+1);
+	//
 }

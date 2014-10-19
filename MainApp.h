@@ -11,6 +11,8 @@ public:
 	MainApp();
 	virtual ~MainApp();
 
+	static void startServerClient();
+
 	virtual void Initialize();
 	virtual void LoadContent();
 	virtual void UnloadContent();
