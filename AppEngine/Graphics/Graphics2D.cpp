@@ -5,6 +5,8 @@
 #include "../Application.h"
 #include <cmath>
 
+#undef TRANSPARENT
+
 namespace AppEngine
 {
 	ArrayList<StringTexture*> Graphics2D::stringCache = ArrayList<StringTexture*>();

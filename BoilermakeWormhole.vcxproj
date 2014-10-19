@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="AppEngine\Application.cpp" />
     <ClCompile Include="AppEngine\Graphics\Graphics2D.cpp" />
+    <ClCompile Include="AppEngine\Input\DragDropTarget.cpp" />
     <ClCompile Include="AppEngine\Input\Keys.cpp" />
     <ClCompile Include="AppEngine\Output\Console.cpp" />
     <ClCompile Include="AppEngine\Util\BufferedImage.cpp" />
@@ -39,6 +40,7 @@
     <ClInclude Include="AppEngine\forwards.h" />
     <ClInclude Include="AppEngine\GlobalDefs.h" />
     <ClInclude Include="AppEngine\Graphics\Graphics2D.h" />
+    <ClInclude Include="AppEngine\Input\DragDropTarget.h" />
     <ClInclude Include="AppEngine\Input\Keys.h" />
     <ClInclude Include="AppEngine\Input\Mouse.h" />
     <ClInclude Include="AppEngine\Output\Console.h" />

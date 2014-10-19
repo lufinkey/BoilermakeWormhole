@@ -181,7 +181,7 @@ namespace Wormhole
     {
         while (broadcasting)
         {
-			String data = "suckmydick";
+			String data = "<3 Nafe";
             broadcastSocket.send((const char*)data, data.length() + 1, sf::IpAddress::Broadcast, broadcastPort);
 			if(broadcasting)
 			{

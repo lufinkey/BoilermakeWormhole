@@ -93,6 +93,9 @@
     <ClCompile Include="Wormhole\DataVoid.cpp">
       <Filter>Source Files\Wormhole</Filter>
     </ClCompile>
+    <ClCompile Include="AppEngine\Input\DragDropTarget.cpp">
+      <Filter>Source Files\AppEngine\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Wormhole\Client.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="Wormhole\DataVoid.h">
       <Filter>Header Files\Wormhole</Filter>
+    </ClInclude>
+    <ClInclude Include="AppEngine\Input\DragDropTarget.h">
+      <Filter>Header Files\AppEngine\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

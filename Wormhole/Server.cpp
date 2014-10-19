@@ -171,12 +171,11 @@ namespace Wormhole
 
 		while(polling)
 		{
-			char buffer[20];
-			unsigned int size = 0;
-
+			sf::Packet senderData;
 			sf::IpAddress sender;
+			unsigned short senderPort = 0;
 
-			sf::Socket::Status status = pollingSocket.receive(buffer, sizeof(buffer), size, sender, discoveryPort);
+			sf::Socket::Status status = pollingSocket.receive(senderData, sender, senderPort);
 
 			String selfIP = sf::IpAddress::getLocalAddress().toString();
 

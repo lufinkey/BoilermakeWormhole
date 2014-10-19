@@ -5,6 +5,8 @@
 
 #pragma once
 
+#undef TRANSPARENT
+
 namespace AppEngine
 {
 	class Color

@@ -25,8 +25,8 @@ int main(int argc, char* argv[])
 {
 	Wormhole::Server server;
 	Wormhole::Client client;
-	server.startPolling((unsigned short)800813, 1000);
-	client.startBroadcast((unsigned short)800813, 1000);
+	server.startPolling((unsigned short)80085, 1000);
+	client.startBroadcast((unsigned short)80085, 1000);
 
 	MainApp* mainApp = new MainApp();
 	int retVal = mainApp->run(300,300);

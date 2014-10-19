@@ -11,6 +11,7 @@ namespace AppEngine
 {
 	SDL_Window* Application::window = NULL;
 	SDL_Renderer* Application::renderer = NULL;
+	DragDropTarget* Application::dropTarget = NULL;
 
 	unsigned int Application::windowWidth = 640;
 	unsigned int Application::windowHeight = 480;
@@ -47,6 +48,26 @@ namespace AppEngine
 	void Application::UnloadContent() {}
 	void Application::Update(long appTime) {}
 	void Application::Draw(Graphics2D&g, long appTime) {}
+	
+	DWORD Application::onDropEnter(IDataObject* dataObj, Vector2<long> point)
+	{
+		return DROPEFFECT_LINK;
+	}
+
+	void Application::onDropLeave()
+	{
+		//
+	}
+
+	DWORD Application::onDropDragOver(Vector2<long> point)
+	{
+		return DROPEFFECT_LINK;
+	}
+
+	DWORD Application::onDrop(IDataObject* dataObj, Vector2<long> point)
+	{
+		return DROPEFFECT_LINK;
+	}
 
 	int Application::run(unsigned int width, unsigned int height, bool borderless)
 	{
@@ -96,6 +117,12 @@ namespace AppEngine
 		struct SDL_SysWMinfo wmInfo; 
 		SDL_VERSION(&wmInfo.version); 
 		SDL_GetWindowWMInfo(window, &wmInfo);
+
+#ifdef _WIN32
+		dropTarget = new DragDropTarget(this);
+		HWND hWnd = wmInfo.info.win.window;
+		RegisterDragDrop(hWnd,dropTarget);
+#endif
 
 		windowWidth = width;
 		windowHeight = height;

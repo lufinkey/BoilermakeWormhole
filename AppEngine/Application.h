@@ -1,5 +1,6 @@
 
 #include "Graphics/Graphics2D.h"
+#include "Input/DragDropTarget.h"
 
 #pragma once
 
@@ -22,6 +23,7 @@ namespace AppEngine
 		static Application* appInstance;
 
 		static Graphics2D* graphics;
+		static DragDropTarget* dropTarget;
 
 		static long appTime;
 		static long sleepTime;
@@ -48,6 +50,11 @@ namespace AppEngine
 		virtual void UnloadContent();
 		virtual void Update(long appTime);
 		virtual void Draw(Graphics2D&g, long appTime);
+
+		virtual DWORD onDropEnter(IDataObject* dataObj, Vector2<long> point);
+		virtual void onDropLeave();
+		virtual DWORD onDropDragOver(Vector2<long> point);
+		virtual DWORD onDrop(IDataObject* dataObj, Vector2<long> point);
 
 		int run(unsigned int width, unsigned int height, bool borderless = false);
 
