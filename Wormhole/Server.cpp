@@ -4,15 +4,130 @@
 
 namespace Wormhole
 {
+	Server::TcpNode::TcpNode(Server*server, unsigned short port)
+	{
+		acceptThread = NULL;
+		receivedDataPollingThread = NULL;
+		acceptingConnections = false;
+		pollingReceivedData = false;
+		this->server = server;
+		this->port = port;
+		listener.listen(port);
+	}
+
+	Server::TcpNode::~TcpNode()
+	{
+		acceptingConnections = false;
+		pollingReceivedData = false;
+		listener.close();
+		disconnect();
+	}
+
+	void Server::TcpNode::accept()
+	{
+		if(acceptingConnections)
+		{
+			return;
+		}
+
+		acceptingConnections = true;
+		acceptThread = new sf::Thread(&Wormhole::Server::TcpNode::acceptThreadCallback, this);
+		acceptThread->launch();
+	}
+
+	void Server::TcpNode::acceptThreadCallback()
+	{
+		while(acceptingConnections)
+		{
+			sf::Socket::Status status = listener.accept(socket);
+			if(status == sf::Socket::Done)
+			{
+				acceptingConnections = false;
+				if(server->peerConnectedCallback != NULL)
+				{
+					server->peerConnectedCallback(socket.getRemoteAddress().toString());
+				}
+			}
+		}
+	}
+
+	void Server::TcpNode::pollReceivedData()
+	{
+		if(pollingReceivedData)
+		{
+			return;
+		}
+
+		pollingReceivedData = true;
+		receivedDataPollingThread = new sf::Thread(&Server::TcpNode::receivedDataPollingThreadCallback, this);
+		receivedDataPollingThread->launch();
+	}
+
+	void Server::TcpNode::receivedDataPollingThreadCallback()
+	{
+		while(pollingReceivedData)
+		{
+			String ipAddress = socket.getRemoteAddress().toString();
+			sf::Packet packet;
+			sf::Socket::Status status = socket.receive(packet);
+			if(status == sf::Socket::Done)
+			{
+				if(server->dataReceivedCallback != NULL)
+				{
+					server->dataReceivedCallback(ipAddress, packet.getData(), packet.getDataSize());
+				}
+			}
+		}
+	}
+
+	void Server::TcpNode::disconnect()
+	{
+		acceptingConnections = false;
+		pollingReceivedData = false;
+		socket.disconnect();
+		if(receivedDataPollingThread != NULL)
+		{
+			delete receivedDataPollingThread;
+			receivedDataPollingThread = NULL;
+		}
+		if(acceptThread != NULL)
+		{
+			delete acceptThread;
+			acceptThread = NULL;
+		}
+	}
+
+	bool Server::TcpNode::isConnected()
+	{
+		if(socket.getRemoteAddress() == sf::IpAddress::None)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	bool Server::TcpNode::isPollingReceivedData()
+	{
+		return pollingReceivedData;
+	}
+
+	String Server::TcpNode::getIP()
+	{
+		return socket.getRemoteAddress().toString();
+	}
+
 	Server::Server()
 	{
 		polling = false;
-		discoveryPollingThread = NULL;
-		transferPollingThread = NULL;
-		discoveryPort = 8009;
-		transferPort = 8010;
+		pollingThread = NULL;
+		discoveryPort = (unsigned short)80081;
+		nodesPort = (unsigned short)80082;
 		pollingFrequency = 1000;
+
 		peerDiscoveredCallback = NULL;
+		peerLostCallback = NULL;
+		peerConnectedCallback = NULL;
+		dataReceivedCallback = NULL;
 	}
 
 	Server::~Server()
@@ -23,7 +138,7 @@ namespace Wormhole
 		}
 	}
 
-	void Server::startPolling(unsigned short discoveryPort, unsigned short transferPort, long pollingFrequency)
+	void Server::startPolling(unsigned short discoveryPort, long pollingFrequency)
 	{
 		if(polling)
 		{
@@ -32,15 +147,11 @@ namespace Wormhole
 
 		polling = true;
 		this->discoveryPort = discoveryPort;
-		this->transferPort = transferPort;
 		this->pollingFrequency = pollingFrequency;
 
 		pollingSocket.bind(discoveryPort);
-		discoveryPollingThread = new sf::Thread(&Server::discoveryPollingThreadCallback, this);
-		discoveryPollingThread->launch();
-
-		transferPollingThread = new sf::Thread(&Server::transferPollingThread, this);
-		transferPollingThread->launch();
+		pollingThread = new sf::Thread(&Server::pollingThreadCallback, this);
+		pollingThread->launch();
 	}
 
 	void Server::stopPolling()
@@ -54,7 +165,7 @@ namespace Wormhole
 		}
 	}
 
-	void Server::discoveryPollingThreadCallback()
+	void Server::pollingThreadCallback()
 	{
 		timeData.restart();
 
@@ -65,7 +176,7 @@ namespace Wormhole
 
 			sf::IpAddress sender;
 
-			sf::Socket::Status status = pollingSocket.receive(buffer, sizeof(buffer), size, sender, port);
+			sf::Socket::Status status = pollingSocket.receive(buffer, sizeof(buffer), size, sender, discoveryPort);
 
 			String selfIP = sf::IpAddress::getLocalAddress().toString();
 
@@ -79,6 +190,11 @@ namespace Wormhole
 				if((currentTime - data.lastHeardTime) > 8000)
 				{
 					IPList.remove(i);
+
+					if(peerLostCallback != NULL)
+					{
+						peerLostCallback(data.ipAddress);
+					}
 				}
 			}
 
@@ -130,15 +246,15 @@ namespace Wormhole
 		IPList.clear();
 	}
 
-	void Server::transferPollingThreadCallback()
+	void Server::openNode(unsigned short port)
 	{
-		while (polling)
-		{
-			char buffer[1024];
-			std::size_t received = 0;
-			transferSocket.receive(buffer, sizeof(buffer), received);
-			paths.add(buffer);
-		}
+		nodes_mutex.lock();
+
+		TcpNode* node = new TcpNode(this, port);
+		nodes.add(node);
+		node->accept();
+
+		nodes_mutex.unlock();
 	}
 
 	bool Server::isPolling()
@@ -164,5 +280,20 @@ namespace Wormhole
 	void Server::setPeerDiscoveredCallback(WormholePeerDiscoveredCallback callback)
 	{
 		peerDiscoveredCallback = callback;
+	}
+
+	void Server::setPeerLostCallback(WormholePeerLostCallback callback)
+	{
+		peerLostCallback = callback;
+	}
+
+	void Server::setPeerConnectedCallback(WormholePeerConnectedCallback callback)
+	{
+		peerConnectedCallback = callback;
+	}
+
+	void Server::setDataReceivedCallback(WormholeDataReceivedCallback callback)
+	{
+		dataReceivedCallback = callback;
 	}
 }

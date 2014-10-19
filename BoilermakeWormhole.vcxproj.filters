@@ -90,6 +90,9 @@
     <ClCompile Include="AppEngine\Input\Keys.cpp">
       <Filter>Source Files\AppEngine\Input</Filter>
     </ClCompile>
+    <ClCompile Include="Wormhole\DataVoid.cpp">
+      <Filter>Source Files\Wormhole</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Wormhole\Client.h">
@@ -142,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="AppEngine\Input\Mouse.h">
       <Filter>Header Files\AppEngine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Wormhole\DataVoid.h">
+      <Filter>Header Files\Wormhole</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

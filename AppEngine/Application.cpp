@@ -1,6 +1,4 @@
 
-#define _CRT_SECURE_NO_WARNINGS
-
 #include "Application.h"
 #include "Output\Console.h"
 #include <SDL_image.h>
@@ -95,7 +93,8 @@ namespace AppEngine
 
 		SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
 
-		SDL_SysWMinfo wmInfo;
+		struct SDL_SysWMinfo wmInfo; 
+		SDL_VERSION(&wmInfo.version); 
 		SDL_GetWindowWMInfo(window, &wmInfo);
 
 		windowWidth = width;

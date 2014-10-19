@@ -5,12 +5,134 @@
 
 namespace Wormhole
 {
+	Client::SendThread::SendThread(DataVoid& data, sf::TcpSocket* socket) : sf::Thread(&Client::SendThread::threadCallback, this)
+	{
+		this->data = data;
+		this->socket = socket;
+		sending = true;
+	}
+
+	Client::SendThread::~SendThread()
+	{
+		//
+	}
+
+	void Client::SendThread::threadCallback()
+	{
+		socket->send(data.getData(), data.length());
+		sending = false;
+	}
+
+	bool Client::SendThread::isSending()
+	{
+		return sending;
+	}
+
+	Client::TcpPeer::TcpPeer(const String& ipAddress)
+	{
+		sending = false;
+		port = (unsigned short)80082;
+		connectThread = NULL;
+		this->ipAddress = ipAddress;
+	}
+
+	Client::TcpPeer::~TcpPeer()
+	{
+		disconnect();
+	}
+
+	void Client::TcpPeer::connect(unsigned short port)
+	{
+		if(isConnected())
+		{
+			disconnect();
+		}
+
+		this->port = port;
+
+		connectThread_mutex.lock();
+		if(connectThread != NULL)
+		{
+			delete connectThread;
+			connectThread = NULL;
+		}
+
+		connectThread = new sf::Thread(&Client::TcpPeer::connectThreadCallback, this);
+		connectThread->launch();
+		connectThread_mutex.unlock();
+	}
+
+	void Client::TcpPeer::connectThreadCallback()
+	{
+		sf::Socket::Status status = peerSocket.connect((char*)ipAddress, port, sf::milliseconds(3000));
+	}
+
+	void Client::TcpPeer::disconnect()
+	{
+		peerSocket.disconnect();
+
+		connectThread_mutex.lock();
+		if(connectThread != NULL)
+		{
+			delete connectThread;
+			connectThread = NULL;
+		}
+		connectThread_mutex.unlock();
+
+		sendThreads_mutex.lock();
+		for(int i = (sendThreads.size()-1); i >= 0; i--)
+		{
+			delete sendThreads.get(i);
+			sendThreads.remove(i);
+		}
+		sendThreads_mutex.unlock();
+	}
+
+	void Client::TcpPeer::send(void* data, unsigned int size)
+	{
+		send(DataVoid(data, size));
+	}
+
+	void Client::TcpPeer::send(DataVoid& dataVoid)
+	{
+		sendThreads_mutex.lock();
+		for(int i = (sendThreads.size()-1); i >= 0; i--)
+		{
+			SendThread* sendThread = sendThreads.get(i);
+			if(!sendThread->isSending())
+			{
+				delete sendThread;
+				sendThreads.remove(i);
+			}
+		}
+
+		SendThread* sendThread = new SendThread(dataVoid, &peerSocket);
+		sendThreads.add(sendThread);
+		sendThreads_mutex.unlock();
+		
+		sendThread->launch();
+	}
+
+	bool Client::TcpPeer::isConnected()
+	{
+		if(peerSocket.getRemoteAddress() == sf::IpAddress::None)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	const String& Client::TcpPeer::getIP()
+	{
+		return ipAddress;
+	}
+
 	Client::Client()
 	{
 		broadcasting = false;
 		broadcastThread = NULL;
-		sendingFile = false;
-		sendFileThread = NULL;
+		broadcastPort = (unsigned short)80081;
+		broadcastFrequency = 1000;
 	}
 
 	Client::~Client()
@@ -20,10 +142,13 @@ namespace Wormhole
 			stopBroadcast();
 		}
 
-		if(sendingFile)
+		peers_mutex.lock();
+		for(int i = (peers.size()-1); i >= 0; i--)
 		{
-            stopSendFile();
+			delete peers.get(i);
+			peers.remove(i);
 		}
+		peers_mutex.unlock();
 	}
 
     void Client::startBroadcast(unsigned short port, long broadcastFrequency)
@@ -41,20 +166,6 @@ namespace Wormhole
 		broadcastThread->launch();
     }
 
-    void Client::sendFile(unsigned short port, ArrayList<String> recipients, String path)
-    {
-        if (sendingFile)
-		{
-			stopSendFile();
-		}
-
-		sendingFile = true;
-		sendFilePort = port;
-        this->path = path;
-        sendFileThread = new sf::Thread(&Client::sendFileThreadCallback, recipients);
-        sendFileThread->launch();
-    }
-
 	void Client::stopBroadcast()
 	{
 		if (broadcasting)
@@ -63,16 +174,6 @@ namespace Wormhole
 			//broadcastSocket.unbind();
 			delete broadcastThread;
 			broadcastThread = NULL;
-		}
-	}
-
-	void Client::stopSendFile()
-	{
-		if (sendingFile)
-		{
-			sendingFile = false;
-			delete sendFileThread;
-			sendFileThread = NULL;
 		}
 	}
 
@@ -89,23 +190,54 @@ namespace Wormhole
         }
     }
 
-    void Client::sendFileThreadCallback(ArrayList<String> recipients)
-    {
-		for (int i = 0; i < recipients.size(); i++)
-		{
-            sendFileSocket.connect((char*)recipients.get(i), sendFilePort);
-            sendFileSocket.send((const char*)path, path.length() + 1);
-            sendFileSocket.disconnect();
-		}
-    }
-
 	bool Client::isBroadcasting()
 	{
 		return broadcasting;
 	}
 
-	bool Client::isSendingFile()
+	void Client::connectPeer(const String& ipAddress, unsigned short port)
 	{
-		return sendingFile;
+		peers_mutex.lock();
+
+		TcpPeer* peer = new TcpPeer(ipAddress);
+		peer->connect(port);
+		peers.add(peer);
+
+		peers_mutex.unlock();
+	}
+
+	void Client::disconnectPeer(const String& ipAddress)
+	{
+		peers_mutex.lock();
+
+		for(int i = 0; i < peers.size(); i++)
+		{
+			TcpPeer* peer = peers.get(i);
+			if(peer->getIP().equals(ipAddress))
+			{
+				delete peer;
+				peers.remove(i);
+				i = peers.size();
+			}
+		}
+
+		peers_mutex.unlock();
+	}
+
+	void Client::sendToPeers(DataVoid& dataVoid)
+	{
+		peers_mutex.lock();
+
+		for(int i = 0; i < peers.size(); i++)
+		{
+			peers.get(i)->send(dataVoid);
+		}
+
+		peers_mutex.unlock();
+	}
+
+	void Client::sendToPeers(void* data, unsigned int size)
+	{
+		sendToPeers(DataVoid(data, size));
 	}
 }

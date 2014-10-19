@@ -31,6 +31,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="Wormhole\Client.cpp" />
+    <ClCompile Include="Wormhole\DataVoid.cpp" />
     <ClCompile Include="Wormhole\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +51,7 @@
     <ClInclude Include="AppEngine\Util\Vector2.h" />
     <ClInclude Include="MainApp.h" />
     <ClInclude Include="Wormhole\Client.h" />
+    <ClInclude Include="Wormhole\DataVoid.h" />
     <ClInclude Include="Wormhole\Server.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
