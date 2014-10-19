@@ -41,7 +41,7 @@ namespace Wormhole
 		broadcastThread->launch();
     }
 
-    void Client::sendFile(unsigned short port, String path)
+    void Client::sendFile(unsigned short port, ArrayList<String> recipients, String path)
     {
         if (sendingFile)
 		{
@@ -51,7 +51,7 @@ namespace Wormhole
 		sending = true;
 		sendFilePort = port;
         this->path = path;
-        sendFileThread = new sf::Thread(&Client::sendFileThreadCallback, this);
+        sendFileThread = new sf::Thread(&Client::sendFileThreadCallback, recipients);
         sendFileThread->launch();
     }
 
@@ -89,18 +89,13 @@ namespace Wormhole
         }
     }
 
-    void Client::sendFileThreadCallback()
+    void Client::sendFileThreadCallback(ArrayList<String> recipients)
     {
-
-    }
-
-    void Client::connect(ArrayList<String> IPs)
-    {
-        for (int i = 0; i < IPs.size(); i++)
+		for (int i = 0; i < recipients.size(); i++)
 		{
-			sf::TcpSocket recipient;
-			recipient.connect((char*)IPs.get(i), sendFilePort);
-			recipients.add(recipient);
+            sendFileSocket.connect((char*)recipients.get(i), sendFilePort);
+            sendFileSocket.send((const char*)path, path.length() + 1);
+            sendFileSocket.disconnect();
 		}
     }
 
