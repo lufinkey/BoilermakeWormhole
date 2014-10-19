@@ -27,10 +27,10 @@ void onPeerLost(const String& ipAddress)
 	client.disconnectPeer(ipAddress);
 }
 
-void onDataReceived(const void* data, unsigned int size)
+void onDataReceived(const String& ipAddress, const void* data, unsigned int size)
 {
 	String str = (const char*)data;
-	Console::WriteLine((String)"Data Received: " + str);
+	Console::WriteLine((String)"Data Received from ip: " + ipAddress + " : " + str);
 	//Do something with this shit
 }
 
@@ -38,6 +38,10 @@ MainApp::MainApp()
 {
 	server.startPolling(8420, 1000);
 	client.startBroadcast(8420, 1000);
+	server.setPeerDiscoveredCallback(&onPeerDiscovered);
+	server.setPeerConnectedCallback(&onPeerConnected);
+	server.setPeerLostCallback(&onPeerLost);
+	server.setDataReceivedCallback(&onDataReceived);
 }
 
 MainApp::~MainApp()
