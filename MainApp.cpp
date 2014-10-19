@@ -10,8 +10,8 @@ Wormhole::Client client;
 void onPeerDiscovered(const String& ipAddress)
 {
 	Console::WriteLine((String)"Discovered ip: " + ipAddress);
-	server.openNode(8421);
-	client.connectPeer(ipAddress, 8421);
+	server.openNode(8009);
+	client.connectPeer(ipAddress, 8009);
 }
 
 void onPeerConnected(const String& ipAddress)
@@ -36,8 +36,9 @@ void onDataReceived(const String& ipAddress, const void* data, unsigned int size
 
 MainApp::MainApp()
 {
-	server.startPolling(8420, 1000);
-	client.startBroadcast(8420, 1000);
+	Console::WriteLine((String)"Local ip: " + sf::IpAddress::getLocalAddress().toString());
+	server.startPolling(8008, 1000);
+	client.startBroadcast(8008, 1000);
 	server.setPeerDiscoveredCallback(&onPeerDiscovered);
 	server.setPeerConnectedCallback(&onPeerConnected);
 	server.setPeerLostCallback(&onPeerLost);
