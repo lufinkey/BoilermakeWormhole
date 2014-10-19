@@ -22,15 +22,20 @@ namespace Wormhole
 		std::mutex IPList_mutex;
 		ArrayList<IPData> IPList;
 		sf::UdpSocket pollingSocket;
-		sf::Thread* pollingThread;
+		sf::TcpSocket transferSocket;
+		sf::Thread* discoveryPollingThread;
+		sf::Thread* transferPollingThread;
+		ArrayList<String> paths;
 
 		sf::Clock timeData;
 
-		unsigned short port;
+		unsigned short discoveryPort;
+		unsigned short transferPort;
 		long pollingFrequency;
 		bool polling;
 
-		void pollingThreadCallback();
+		void discoveryPollingThreadCallback();
+		void transferPollingThreadCallback();
 
 		WormholePeerDiscoveredCallback peerDiscoveredCallback;
 
@@ -38,7 +43,7 @@ namespace Wormhole
 		Server();
 		~Server();
 
-		void startPolling(unsigned short port, long pollingFrequency=1000);
+		void startPolling(unsigned short discoveryPort, unsigned short transferPort, long pollingFrequency=1000);
 		void stopPolling();
 
 		bool isPolling();

@@ -7,8 +7,10 @@ namespace Wormhole
 	Server::Server()
 	{
 		polling = false;
-		pollingThread = NULL;
-		port = 8009;
+		discoveryPollingThread = NULL;
+		transferPollingThread = NULL;
+		discoveryPort = 8009;
+		transferPort = 8010;
 		pollingFrequency = 1000;
 		peerDiscoveredCallback = NULL;
 	}
@@ -21,7 +23,7 @@ namespace Wormhole
 		}
 	}
 
-	void Server::startPolling(unsigned short port, long pollingFrequency)
+	void Server::startPolling(unsigned short discoveryPort, unsigned short transferPort, long pollingFrequency)
 	{
 		if(polling)
 		{
@@ -29,11 +31,16 @@ namespace Wormhole
 		}
 
 		polling = true;
-		this->port = port;
+		this->discoveryPort = discoveryPort;
+		this->transferPort = transferPort;
 		this->pollingFrequency = pollingFrequency;
-		pollingSocket.bind(port);
-		pollingThread = new sf::Thread(&Server::pollingThreadCallback, this);
-		pollingThread->launch();
+
+		pollingSocket.bind(discoveryPort);
+		discoveryPollingThread = new sf::Thread(&Server::discoveryPollingThreadCallback, this);
+		discoveryPollingThread->launch();
+
+		transferPollingThread = new sf::Thread(&Server::transferPollingThread, this);
+		transferPollingThread->launch();
 	}
 
 	void Server::stopPolling()
@@ -47,7 +54,7 @@ namespace Wormhole
 		}
 	}
 
-	void Server::pollingThreadCallback()
+	void Server::discoveryPollingThreadCallback()
 	{
 		timeData.restart();
 
@@ -121,6 +128,17 @@ namespace Wormhole
 		}
 
 		IPList.clear();
+	}
+
+	void Server::transferPollingThreadCallback()
+	{
+		while (polling)
+		{
+			char buffer[1024];
+			std::size_t received = 0;
+			transferSocket.receive(buffer, sizeof(buffer), received);
+			paths.add(buffer);
+		}
 	}
 
 	bool Server::isPolling()

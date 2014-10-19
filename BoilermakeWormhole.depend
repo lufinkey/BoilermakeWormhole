@@ -432,25 +432,28 @@
 	<math.h>
 	<cstring>
 
-1413653828 source:c:\users\matthew\dev\cpp\boilermakewormhole\main.cpp
+1413671910 source:c:\users\matthew\dev\cpp\boilermakewormhole\main.cpp
 	"MainApp.h"
 	"Wormhole/Client.h"
 	"Wormhole/Server.h"
+	"AppEngine/Output/Console.h"
 
-1413645830 c:\users\matthew\dev\cpp\boilermakewormhole\mainapp.h
-	"AppEngine\Application.h"
+1413672792 c:\users\matthew\dev\cpp\boilermakewormhole\mainapp.h
+	"AppEngine/Application.h"
 
-1413645830 source:c:\users\matthew\dev\cpp\boilermakewormhole\mainapp.cpp
+1413672792 source:c:\users\matthew\dev\cpp\boilermakewormhole\mainapp.cpp
 	"MainApp.h"
+	"AppEngine/Output/Console.h"
 
 1413653868 source:c:\users\matthew\dev\cpp\boilermakewormhole\wormhole\client.cpp
 	"Client.h"
 	"String.h"
 	"../AppEngine/Output/Console.h"
 
-1413646200 c:\users\matthew\dev\cpp\boilermakewormhole\wormhole\client.h
+1413681183 c:\users\matthew\dev\cpp\boilermakewormhole\wormhole\client.h
 	<SFML/Network.hpp>
 	<SFML/System/Thread.hpp>
+	"../AppEngine/Util/String.h"
 	"../AppEngine/Util/ArrayList.h"
 
 1367997281 c:\users\matthew\dev\cpp\boilermakewormhole\sfml\include\sfml\network.hpp
@@ -622,10 +625,11 @@
 	"../AppEngine/Output/Console.h"
 	"Server.h"
 
-1413652536 c:\users\matthew\dev\cpp\boilermakewormhole\wormhole\server.h
+1413682722 c:\users\matthew\dev\cpp\boilermakewormhole\wormhole\server.h
 	<SFML/Network.hpp>
 	"../AppEngine/Util/String.h"
 	"../AppEngine/Util/ArrayList.h"
+	<mutex>
 
 1394937197 c:\users\matthew\dev\cpp\boilermakewormhole\sdl\i686-w64-mingw32\include\sdl2\sdl_syswm.h
 	"SDL_stdinc.h"

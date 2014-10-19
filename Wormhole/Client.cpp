@@ -48,7 +48,7 @@ namespace Wormhole
 			stopSendFile();
 		}
 
-		sending = true;
+		sendingFile = true;
 		sendFilePort = port;
         this->path = path;
         sendFileThread = new sf::Thread(&Client::sendFileThreadCallback, recipients);
